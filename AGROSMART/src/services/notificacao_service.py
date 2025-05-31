@@ -1,4 +1,4 @@
-# AGROSMART/src/services/notificacao_service.py
+
 from typing import List, Optional, Dict
 from datetime import datetime
 from dataclasses import dataclass
