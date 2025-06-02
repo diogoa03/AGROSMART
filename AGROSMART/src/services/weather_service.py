@@ -27,7 +27,12 @@ class WeatherService:
         self.session = self._create_session()
         
     def _create_session(self) -> requests.Session:
-        """Cria e configura uma sessão HTTP reutilizável."""
+        """
+        Cria e configura uma sessão HTTP reutilizável.
+        
+        Returns:
+            Session configurada com retry e pooling
+        """
         session = requests.Session()
         adapter = requests.adapters.HTTPAdapter(
             max_retries=3,
@@ -37,20 +42,17 @@ class WeatherService:
         session.mount('http://', adapter)
         session.mount('https://', adapter)
         return session
-
+        
     def get_weather(self, city: str = "Lisbon", country: str = "PT") -> WeatherResponse:
         """
-        Obtém dados meteorológicos de uma cidade.
+        Obtém dados meteorológicos para uma cidade.
         
         Args:
-            city (str): Nome da cidade
-            country (str): Código do país ISO 3166
+            city: Nome da cidade
+            country: Código do país (ISO 3166-2)
             
         Returns:
-            WeatherResponse: Objeto contendo dados meteorológicos ou erro
-            
-        Raises:
-            WeatherAPIException: Se houver erro na API
+            WeatherResponse com dados ou erro
         """
         try:
             self._validate_input(city, country)
@@ -58,16 +60,15 @@ class WeatherService:
             
             params = self._build_params(city, country)
             response = self._make_request(params)
-            
             weather_data = response.json()
+            
             self._validate_response(weather_data)
             
             self.logger.info(
-                f"Dados meteorológicos obtidos com sucesso para {city}, {country}",
+                f"Dados obtidos para {city},{country}",
                 extra={
-                    "city": city,
-                    "country": country,
-                    "temperature": weather_data.get("main", {}).get("temp")
+                    "temperature": weather_data.get("main", {}).get("temp"),
+                    "humidity": weather_data.get("main", {}).get("humidity")
                 }
             )
             
