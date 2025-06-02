@@ -1,87 +1,86 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Dict, Any
+from enum import Enum as PyEnum
 
 Base = declarative_base()
 
-class Notificacao(Base):
+class PrioridadeEnum(PyEnum):
+    """Enumeração para prioridades de recomendação."""
+    BAIXA = "BAIXA"
+    MEDIA = "MÉDIA"
+    ALTA = "ALTA"
+
+class Recomendacao(Base):
     """
-    Modelo de notificação do sistema.
+    Modelo de recomendação do sistema.
     
     Attributes:
-        id (int): Identificador único da notificação
-        titulo (str): Título da notificação (max 100 chars)
-        mensagem (str): Conteúdo da notificação (max 500 chars)
-        tipo (str): Tipo da notificação (ALERTA, INFO, AVISO)
-        usuario_id (int): ID do usuário destinatário
-        data_criacao (datetime): Data de criação da notificação
-        lida (bool): Indica se a notificação foi lida
-        data_leitura (datetime): Data em que a notificação foi lida
+        id (int): Identificador único da recomendação
+        descricao (str): Descrição detalhada da recomendação
+        prioridade (str): Nível de prioridade (BAIXA, MÉDIA, ALTA)
+        data_criacao (datetime): Data de criação da recomendação
+        sensor_id (int): ID do sensor que gerou os dados
+        implementada (bool): Indica se a recomendação foi implementada
+        data_implementacao (datetime): Data em que foi implementada
     """
     
-    __tablename__ = 'notificacoes'
+    __tablename__ = 'recomendacoes'
     
     # Colunas do banco
     id = Column(Integer, primary_key=True)
-    titulo = Column(String(100), nullable=False)
-    mensagem = Column(String(500), nullable=False)
-    tipo = Column(String(20), nullable=False)
-    usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False)
+    descricao = Column(String(500), nullable=False)
+    prioridade = Column(Enum(PrioridadeEnum), nullable=False)
     data_criacao = Column(DateTime, default=datetime.now, nullable=False)
-    lida = Column(Boolean, default=False)
-    data_leitura = Column(DateTime, nullable=True)
+    sensor_id = Column(Integer, ForeignKey('sensores.id'), nullable=False)
+    implementada = Column(Boolean, default=False)
+    data_implementacao = Column(DateTime, nullable=True)
     
     # Relacionamentos
-    usuario = relationship("Usuario", back_populates="notificacoes")
-    
-    # Tipos válidos de notificação
-    TIPOS_VALIDOS = ["ALERTA", "INFO", "AVISO"]
+    sensor = relationship("Sensor", back_populates="recomendacoes")
     
     def __init__(self, **kwargs):
-        """Inicializa uma nova notificação."""
+        """Inicializa uma nova recomendação."""
         super().__init__(**kwargs)
         self.validate()
     
     def validate(self) -> None:
         """
-        Valida os dados da notificação.
+        Valida os dados da recomendação.
         
         Raises:
             ValueError: Se algum campo estiver inválido
         """
-        if not self.titulo or len(self.titulo) > 100:
-            raise ValueError("Título inválido ou muito longo")
-        if not self.mensagem or len(self.mensagem) > 500:
-            raise ValueError("Mensagem inválida ou muito longa")
-        if self.tipo not in self.TIPOS_VALIDOS:
-            raise ValueError(f"Tipo inválido. Use: {', '.join(self.TIPOS_VALIDOS)}")
+        if not self.descricao or len(self.descricao) > 500:
+            raise ValueError("Descrição inválida ou muito longa")
+        if not isinstance(self.prioridade, PrioridadeEnum):
+            raise ValueError(f"Prioridade inválida. Use: {', '.join(p.value for p in PrioridadeEnum)}")
     
-    def marcar_como_lida(self) -> None:
-        """Marca a notificação como lida, registrando a data."""
-        if not self.lida:
-            self.lida = True
-            self.data_leitura = datetime.now()
+    def marcar_como_implementada(self) -> None:
+        """Marca a recomendação como implementada, registrando a data."""
+        if not self.implementada:
+            self.implementada = True
+            self.data_implementacao = datetime.now()
     
     def to_dict(self) -> Dict[str, Any]:
         """
-        Converte a notificação para dicionário.
+        Converte a recomendação para dicionário.
         
         Returns:
-            Dict com os dados da notificação
+            Dict com os dados da recomendação
         """
         return {
             "id": self.id,
-            "titulo": self.titulo,
-            "mensagem": self.mensagem,
-            "tipo": self.tipo,
-            "usuario_id": self.usuario_id,
+            "descricao": self.descricao,
+            "prioridade": self.prioridade.value,
             "data_criacao": self.data_criacao.isoformat(),
-            "lida": self.lida,
-            "data_leitura": self.data_leitura.isoformat() if self.data_leitura else None
+            "sensor_id": self.sensor_id,
+            "implementada": self.implementada,
+            "data_implementacao": self.data_implementacao.isoformat() if self.data_implementacao else None
         }
 
     def __repr__(self) -> str:
         """Representação string do objeto."""
-        return f"<Notificacao(id={self.id}, titulo='{self.titulo}', tipo='{self.tipo}')>"
+        return f"<Recomendacao(id={self.id}, prioridade='{self.prioridade.value}')>"
