@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Tuple
 from datetime import datetime
 from src.config.settings import Settings
 from src.services.weather_service import WeatherService
-from src.services.notificacao import NotificacaoService
+from src.services.notificacao_service import NotificacaoService
 from src.middleware.auth import auth_required
 from src.utils.logger import Logger
 import traceback
@@ -18,14 +18,48 @@ logger = Logger(__name__)
 weather_service = WeatherService()
 notificacao_service = NotificacaoService()
 
+def create_error_response(error: str, status_code: int = 400) -> Tuple[Dict, int]:
+    """
+    Cria resposta de erro padronizada.
+    
+    Args:
+        error: Mensagem de erro
+        status_code: Código HTTP (default: 400)
+        
+    Returns:
+        Tuple com dicionário de erro e status code
+    """
+    return {
+        "erro": error,
+        "timestamp": datetime.now().isoformat()
+    }, status_code
+
 @app.before_request
 def before_request() -> None:
     """Middleware para logging de requisições."""
-    logger.info(f"Requisição recebida: {request.method} {request.path}")
-    logger.info(f"Headers: {dict(request.headers)}")
+    logger.info(
+        "Requisição recebida",
+        extra={
+            "method": request.method,
+            "path": request.path,
+            "headers": dict(request.headers)
+        }
+    )
 
 def validate_request_data(data: Dict[str, Any], required_fields: list) -> Optional[str]:
-    """Valida dados da requisição."""
+    """
+    Valida dados da requisição.
+    
+    Args:
+        data: Dados da requisição
+        required_fields: Lista de campos obrigatórios
+        
+    Returns:
+        Mensagem de erro ou None se válido
+    """
+    if not data:
+        return "Corpo da requisição vazio"
+        
     for field in required_fields:
         if field not in data:
             return f"Campo obrigatório não informado: {field}"
@@ -44,12 +78,18 @@ def handle_error(error: Exception) -> Response:
     Returns:
         Response com detalhes do erro
     """
-    logger.error(f"Erro: {str(error)}\n{traceback.format_exc()}")
-    return jsonify({
-        "erro": "Erro interno do servidor",
-        "mensagem": str(error),
-        "timestamp": datetime.now().isoformat()
-    }), 500
+    logger.error(
+        "Erro não tratado",
+        extra={
+            "error": str(error),
+            "traceback": traceback.format_exc()
+        }
+    )
+    response, status = create_error_response(
+        "Erro interno do servidor",
+        500
+    )
+    return jsonify(response), status
 
 @app.route('/api/weather')
 @auth_required
@@ -85,23 +125,17 @@ def criar_notificacao() -> Response:
     Returns:
         Response com resultado da operação
     """
-    dados: Dict[str, Any] = request.get_json()
+    dados = request.get_json()
     
-    # Validação dos dados
     erro = validate_request_data(
         dados, 
         ['titulo', 'mensagem', 'tipo', 'usuario_id']
     )
     if erro:
-        return jsonify({"erro": erro}), 400
+        response, status = create_error_response(erro)
+        return jsonify(response), status
     
-    response = notificacao_service.criar(
-        titulo=dados['titulo'],
-        mensagem=dados['mensagem'],
-        tipo=dados['tipo'],
-        usuario_id=dados['usuario_id']
-    )
-    
+    response = notificacao_service.criar(**dados)
     return jsonify(response.__dict__), response.status
 
 @app.route('/api/notificacoes/<int:usuario_id>', methods=['GET'])
@@ -116,7 +150,14 @@ def listar_notificacoes(usuario_id: int) -> Response:
     Returns:
         Response com lista de notificações
     """
-    response = notificacao_service.listar_por_usuario(usuario_id)
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 20, type=int)
+    
+    response = notificacao_service.listar_por_usuario(
+        usuario_id,
+        page=page,
+        per_page=per_page
+    )
     return jsonify(response.__dict__), response.status
 
 @app.route('/api/notificacoes/<int:notificacao_id>/lida', methods=['PUT'])
