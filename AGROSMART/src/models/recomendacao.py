@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Enum
+from sqlalchemy import Column, Integer, String, DateTime, Enum, Boolean, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -13,6 +13,11 @@ class PrioridadeEnum(PyEnum):
     MEDIA = "MÉDIA"
     ALTA = "ALTA"
 
+    @classmethod
+    def values(cls) -> list[str]:
+        """Retorna lista de valores válidos."""
+        return [e.value for e in cls]
+
 class Recomendacao(Base):
     """
     Modelo de recomendação do sistema.
@@ -20,7 +25,7 @@ class Recomendacao(Base):
     Attributes:
         id (int): Identificador único da recomendação
         descricao (str): Descrição detalhada da recomendação
-        prioridade (str): Nível de prioridade (BAIXA, MÉDIA, ALTA)
+        prioridade (PrioridadeEnum): Nível de prioridade (BAIXA, MÉDIA, ALTA)
         data_criacao (datetime): Data de criação da recomendação
         sensor_id (int): ID do sensor que gerou os dados
         implementada (bool): Indica se a recomendação foi implementada
@@ -42,7 +47,21 @@ class Recomendacao(Base):
     sensor = relationship("Sensor", back_populates="recomendacoes")
     
     def __init__(self, **kwargs):
-        """Inicializa uma nova recomendação."""
+        """
+        Inicializa uma nova recomendação.
+        
+        Args:
+            **kwargs: Argumentos para inicialização do modelo
+                descricao (str): Descrição da recomendação
+                prioridade (PrioridadeEnum): Nível de prioridade
+                sensor_id (int): ID do sensor
+        """
+        if 'prioridade' in kwargs and isinstance(kwargs['prioridade'], str):
+            try:
+                kwargs['prioridade'] = PrioridadeEnum(kwargs['prioridade'])
+            except ValueError:
+                raise ValueError(f"Prioridade inválida. Use: {', '.join(PrioridadeEnum.values())}")
+        
         super().__init__(**kwargs)
         self.validate()
     
@@ -53,34 +72,11 @@ class Recomendacao(Base):
         Raises:
             ValueError: Se algum campo estiver inválido
         """
-        if not self.descricao or len(self.descricao) > 500:
-            raise ValueError("Descrição inválida ou muito longa")
+        if not self.descricao:
+            raise ValueError("Descrição não pode estar vazia")
+        if len(self.descricao) > 500:
+            raise ValueError("Descrição não pode ter mais que 500 caracteres")
         if not isinstance(self.prioridade, PrioridadeEnum):
-            raise ValueError(f"Prioridade inválida. Use: {', '.join(p.value for p in PrioridadeEnum)}")
-    
-    def marcar_como_implementada(self) -> None:
-        """Marca a recomendação como implementada, registrando a data."""
-        if not self.implementada:
-            self.implementada = True
-            self.data_implementacao = datetime.now()
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """
-        Converte a recomendação para dicionário.
-        
-        Returns:
-            Dict com os dados da recomendação
-        """
-        return {
-            "id": self.id,
-            "descricao": self.descricao,
-            "prioridade": self.prioridade.value,
-            "data_criacao": self.data_criacao.isoformat(),
-            "sensor_id": self.sensor_id,
-            "implementada": self.implementada,
-            "data_implementacao": self.data_implementacao.isoformat() if self.data_implementacao else None
-        }
-
-    def __repr__(self) -> str:
-        """Representação string do objeto."""
-        return f"<Recomendacao(id={self.id}, prioridade='{self.prioridade.value}')>"
+            raise ValueError(f"Prioridade inválida. Use: {', '.join(PrioridadeEnum.values())}")
+        if not self.sensor_id:
+            raise ValueError("ID do sensor é obrigatório")

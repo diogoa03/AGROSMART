@@ -8,12 +8,13 @@ from src.utils.logger import Logger
 
 logger = Logger(__name__)
 
-def create_database_engine(url: str) -> Engine:
+def create_database_engine(url: str, **kwargs) -> Engine:
     """
     Cria e configura o engine do banco de dados.
     
     Args:
         url: String de conexão com o banco de dados
+        **kwargs: Argumentos adicionais para configuração
         
     Returns:
         Engine: Engine configurado do SQLAlchemy
@@ -22,19 +23,40 @@ def create_database_engine(url: str) -> Engine:
         SQLAlchemyError: Se houver erro na criação do engine
     """
     try:
-        return create_engine(
-            url,
-            pool_size=5,
-            max_overflow=10,
-            pool_timeout=30,
-            pool_recycle=1800
-        )
+        # Configurações padrão do engine
+        default_settings = {
+            'pool_size': 5,
+            'max_overflow': 10,
+            'pool_timeout': 30,
+            'pool_recycle': 1800,
+            'echo': Settings.DEBUG
+        }
+        
+        # Atualiza com argumentos fornecidos
+        default_settings.update(kwargs)
+        
+        # Cria o engine com tratamento para SQLite
+        if url.startswith('sqlite'):
+            default_settings.pop('pool_size', None)
+            default_settings.pop('max_overflow', None)
+            default_settings['connect_args'] = {'check_same_thread': False}
+            
+        return create_engine(url, **default_settings)
+        
     except Exception as e:
         logger.error(f"Erro ao criar engine do banco: {str(e)}")
         raise
 
-engine = create_database_engine(Settings.DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+try:
+    engine = create_database_engine(Settings.DATABASE_URL)
+    SessionLocal = sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine
+    )
+except Exception as e:
+    logger.critical(f"Falha ao inicializar banco de dados: {str(e)}")
+    raise
 
 @contextmanager
 def db_session() -> Generator[Session, None, None]:
@@ -54,10 +76,12 @@ def db_session() -> Generator[Session, None, None]:
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        logger.error(f"Erro na sessão do banco: {str(e)}")
+        logger.error(f"Erro na sessão do banco: {str(e)}", 
+                    extra={'error': str(e), 'type': type(e).__name__})
         raise
     finally:
-        session.close()
+        if session:
+            session.close()
 
 def get_db() -> Generator[Session, None, None]:
     """
@@ -71,14 +95,17 @@ def get_db() -> Generator[Session, None, None]:
         def read_items(db: Session = Depends(get_db)):
             return db.query(Item).all()
     """
-    db = SessionLocal()
+    session = None
     try:
-        yield db
+        session = SessionLocal()
+        yield session
     except SQLAlchemyError as e:
-        logger.error(f"Erro na sessão do banco: {str(e)}")
+        logger.error(f"Erro na sessão do banco: {str(e)}", 
+                    extra={'error': str(e), 'type': type(e).__name__})
         raise
     finally:
-        db.close()
+        if session:
+            session.close()
 
 def check_database_connection() -> bool:
     """
@@ -92,5 +119,6 @@ def check_database_connection() -> bool:
             session.execute("SELECT 1")
         return True
     except SQLAlchemyError as e:
-        logger.error(f"Erro na conexão com banco: {str(e)}")
+        logger.error(f"Erro na conexão com banco: {str(e)}", 
+                    extra={'error': str(e), 'type': type(e).__name__})
         return False
