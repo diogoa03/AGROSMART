@@ -11,7 +11,7 @@ class Settings:
     """
     Configurações da aplicação com validação e cache.
     
-    Esta classe gerencia todas as configurações do sistema, incluindo:
+    Gerencia todas as configurações do sistema, incluindo:
     - Configurações básicas (SECRET_KEY, DEBUG, PORT)
     - Chaves de API (OpenWeather)
     - Configurações de banco de dados
@@ -20,11 +20,20 @@ class Settings:
     - Configurações JWT
     """
     
+    # Valores padrão e constantes
+    MIN_SECRET_KEY_LENGTH = 32
+    DEFAULT_PORT = 5000
+    DEFAULT_TIMEOUT = 10
+    DEFAULT_MAX_RETRIES = 3
+    DEFAULT_RATE_LIMIT = 100
+    
     def __init__(self):
+        """Inicializa as configurações com valores do .env."""
         # Configurações básicas
-        self.SECRET_KEY = self._get_required_str("SECRET_KEY", "default_secret")
+        self.SECRET_KEY = self._get_required_str("SECRET_KEY")
         self.DEBUG = self._get_bool("DEBUG", True)
-        self.PORT = self._get_int("PORT", 5000)
+        self.PORT = self._get_int("PORT", self.DEFAULT_PORT)
+        self.HOST = self._get_required_str("HOST", "0.0.0.0")
         
         # Chaves de API
         self.OPENWEATHER_API_KEY = self._get_required_str("OPENWEATHER_API_KEY")
@@ -36,9 +45,9 @@ class Settings:
         )
         
         # API Timeouts e Limites
-        self.API_TIMEOUT = self._get_int("API_TIMEOUT", 10)
-        self.MAX_RETRIES = self._get_int("MAX_RETRIES", 3)
-        self.RATE_LIMIT = self._get_int("RATE_LIMIT", 100)
+        self.API_TIMEOUT = self._get_int("API_TIMEOUT", self.DEFAULT_TIMEOUT)
+        self.MAX_RETRIES = self._get_int("MAX_RETRIES", self.DEFAULT_MAX_RETRIES)
+        self.RATE_LIMIT = self._get_int("RATE_LIMIT", self.DEFAULT_RATE_LIMIT)
         
         # Paths
         self.BASE_DIR = Path(__file__).parent.parent
@@ -72,11 +81,32 @@ class Settings:
         return str(value)
     
     def _get_int(self, key: str, default: int) -> int:
-        """Obtém um inteiro das variáveis de ambiente."""
-        return int(os.getenv(key, default))
+        """
+        Obtém um inteiro das variáveis de ambiente.
+        
+        Args:
+            key: Nome da variável
+            default: Valor padrão
+            
+        Returns:
+            int: Valor convertido
+        """
+        try:
+            return int(os.getenv(key, str(default)))
+        except ValueError:
+            return default
     
     def _get_bool(self, key: str, default: bool) -> bool:
-        """Obtém um booleano das variáveis de ambiente."""
+        """
+        Obtém um booleano das variáveis de ambiente.
+        
+        Args:
+            key: Nome da variável
+            default: Valor padrão
+            
+        Returns:
+            bool: Valor convertido
+        """
         return str(os.getenv(key, str(default))).lower() == "true"
     
     def _validate_settings(self) -> None:
@@ -86,27 +116,45 @@ class Settings:
         Raises:
             ValueError: Se alguma configuração estiver inválida
         """
-        if len(self.SECRET_KEY) < 32:
-            raise ValueError("SECRET_KEY deve ter pelo menos 32 caracteres")
-            
+        self._validate_secret_key()
+        self._validate_api_keys()
+        self._validate_timeouts()
+        self._ensure_directories()
+    
+    def _validate_secret_key(self) -> None:
+        """Valida a chave secreta."""
+        if len(self.SECRET_KEY) < self.MIN_SECRET_KEY_LENGTH:
+            raise ValueError(
+                f"SECRET_KEY deve ter pelo menos {self.MIN_SECRET_KEY_LENGTH} caracteres"
+            )
+    
+    def _validate_api_keys(self) -> None:
+        """Valida as chaves de API."""
         if not self.OPENWEATHER_API_KEY:
             raise ValueError("OPENWEATHER_API_KEY é obrigatória")
-            
+    
+    def _validate_timeouts(self) -> None:
+        """Valida configurações de timeout."""
         if self.API_TIMEOUT < 1:
             raise ValueError("API_TIMEOUT deve ser maior que 0")
-            
-        # Garante que diretórios existam
+    
+    def _ensure_directories(self) -> None:
+        """Garante que os diretórios necessários existam."""
         self.LOGS_DIR.mkdir(parents=True, exist_ok=True)
         self.TEMP_DIR.mkdir(parents=True, exist_ok=True)
     
     def as_dict(self) -> Dict[str, Any]:
-        """Retorna todas as configurações como dicionário."""
+        """
+        Retorna todas as configurações como dicionário.
+        
+        Returns:
+            Dict[str, Any]: Configurações em formato de dicionário
+        """
         return {
             key: value for key, value in vars(self).items()
             if key.isupper()
         }
 
-# Singleton com cache para evitar múltiplas leituras
 @lru_cache()
 def get_settings() -> Settings:
     """
@@ -114,6 +162,9 @@ def get_settings() -> Settings:
     
     Returns:
         Settings: Instância das configurações
+        
+    Note:
+        Usa lru_cache para evitar múltiplas leituras do .env
     """
     return Settings()
 
