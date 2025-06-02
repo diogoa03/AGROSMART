@@ -2,50 +2,84 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any
+from logging.handlers import RotatingFileHandler
 from src.config.settings import Settings
 
 class Logger:
-    """Logger personalizado para o sistema."""
+    """Logger personalizado para o sistema com rotação de arquivos e contexto extra."""
     
     def __init__(self, name: str, log_level: int = logging.INFO):
+        """
+        Inicializa o logger com configurações personalizadas.
+        
+        Args:
+            name: Nome do logger
+            log_level: Nível de log (default: INFO)
+        """
         self.logger = logging.getLogger(name)
         self.logger.setLevel(log_level)
         
         if not self.logger.handlers:
             self._setup_handlers()
-    
+
     def _setup_handlers(self) -> None:
+        """Configura handlers para arquivo com rotação e console."""
         log_dir = Settings.LOGS_DIR
-        log_dir.mkdir(exist_ok=True)
+        log_dir.mkdir(exist_ok=True, parents=True)
         
-        file_handler = logging.FileHandler(
+        # Handler de arquivo com rotação
+        file_handler = RotatingFileHandler(
             log_dir / f"app_{datetime.now().strftime('%Y%m%d')}.log",
+            maxBytes=10485760,  # 10MB
+            backupCount=5,
             encoding='utf-8'
         )
         file_handler.setFormatter(self._get_formatter(detailed=True))
         self.logger.addHandler(file_handler)
         
+        # Handler de console
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setFormatter(self._get_formatter(detailed=False))
         self.logger.addHandler(console_handler)
-    
+
     def _get_formatter(self, detailed: bool = False) -> logging.Formatter:
+        """
+        Retorna o formatador de log apropriado.
+        
+        Args:
+            detailed: Se True, inclui informações detalhadas
+        """
         if detailed:
             return logging.Formatter(
-                '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)d] %(message)s',
+                '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)d] '
+                '%(message)s %(extra)s',
                 datefmt='%Y-%m-%d %H:%M:%S'
             )
         return logging.Formatter('%(levelname)s: %(message)s')
-    
-    def info(self, message: str) -> None:
-        self.logger.info(message)
-    
-    def error(self, message: str) -> None:
-        self.logger.error(message)
-    
-    def warning(self, message: str) -> None:
-        self.logger.warning(message)
-    
-    def debug(self, message: str) -> None:
-        self.logger.debug(message)
+
+    def _format_extra(self, extra: Optional[Dict[str, Any]] = None) -> str:
+        """Formata informações extras para o log."""
+        if not extra:
+            return ""
+        return f"- {extra}"
+
+    def info(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
+        """Registra mensagem com nível INFO."""
+        self.logger.info(message, extra={"extra": self._format_extra(extra)})
+
+    def error(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
+        """Registra mensagem com nível ERROR."""
+        self.logger.error(message, extra={"extra": self._format_extra(extra)})
+
+    def warning(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
+        """Registra mensagem com nível WARNING."""
+        self.logger.warning(message, extra={"extra": self._format_extra(extra)})
+
+    def debug(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
+        """Registra mensagem com nível DEBUG."""
+        self.logger.debug(message, extra={"extra": self._format_extra(extra)})
+
+    def critical(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
+        """Registra mensagem com nível CRITICAL."""
+        self.logger.critical(message, extra={"extra": self._format_extra(extra)})
