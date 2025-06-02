@@ -1,54 +1,107 @@
 import pytest
-import os
-from pathlib import Path
-from src.config.settings import Settings, get_settings
+import requests
+from unittest.mock import Mock, patch
+from datetime import datetime
+from src.services.weather_service import WeatherService, WeatherResponse
+from src.exceptions.weather_exceptions import WeatherAPIException
 
-class TestSettings:
+class TestWeatherService:
     @pytest.fixture
-    def mock_env(self, monkeypatch):
-        """Fixture para simular variáveis de ambiente."""
-        env_vars = {
-            "SECRET_KEY": "x" * 32,
-            "OPENWEATHER_API_KEY": "test_key",
-            "DATABASE_URL": "sqlite:///test.db",
-            "DEBUG": "False",
-            "PORT": "5000"
+    def weather_service(self):
+        """Fixture para criar instância do serviço com configurações de teste."""
+        with patch('src.services.weather_service.Settings') as mock_settings:
+            mock_settings.OPENWEATHER_API_KEY = "test_key"
+            mock_settings.API_TIMEOUT = 5
+            return WeatherService()
+    
+    @pytest.fixture
+    def mock_response(self):
+        """Fixture para simular resposta da API."""
+        mock = Mock()
+        mock.json.return_value = {
+            "main": {
+                "temp": 25.6,
+                "humidity": 65
+            },
+            "weather": [{"description": "céu limpo"}]
         }
-        for key, value in env_vars.items():
-            monkeypatch.setenv(key, value)
+        mock.status_code = 200
+        return mock
+
+    def test_get_weather_success(self, weather_service, mock_response):
+        """Testa obtenção bem sucedida de dados meteorológicos."""
+        with patch.object(weather_service.session, 'get', return_value=mock_response):
+            response = weather_service.get_weather("Lisboa", "PT")
             
-    def test_required_settings(self, mock_env):
-        """Testa se configurações obrigatórias são carregadas."""
-        settings = Settings()
-        assert len(settings.SECRET_KEY) >= 32
-        assert settings.OPENWEATHER_API_KEY == "test_key"
-        
-    def test_default_values(self):
-        """Testa valores padrão."""
-        settings = Settings()
-        assert settings.API_TIMEOUT == 10
-        assert settings.PORT == 5000
-        
-    def test_bool_conversion(self):
-        """Testa conversão de booleanos."""
-        settings = Settings()
-        assert isinstance(settings.DEBUG, bool)
-        
-    def test_paths_creation(self, tmp_path):
-        """Testa criação de diretórios."""
-        settings = Settings()
-        assert settings.LOGS_DIR.exists()
-        assert settings.TEMP_DIR.exists()
-        
-    def test_singleton(self):
-        """Testa se get_settings retorna sempre a mesma instância."""
-        s1 = get_settings()
-        s2 = get_settings()
-        assert s1 is s2
-        
-    def test_invalid_secret_key(self, mock_env, monkeypatch):
-        """Testa validação de SECRET_KEY curta."""
-        monkeypatch.setenv("SECRET_KEY", "short")
+            assert response.success is True
+            assert response.status == 200
+            assert response.data["main"]["temp"] == 25.6
+            assert "Dados obtidos com sucesso" in response.message
+
+    def test_validate_input_invalid_city(self, weather_service):
+        """Testa validação de cidade inválida."""
         with pytest.raises(ValueError) as exc:
-            Settings()
-        assert "SECRET_KEY" in str(exc.value)
+            weather_service._validate_input("", "PT")
+        assert "Cidade inválida" in str(exc.value)
+
+    def test_validate_input_invalid_country(self, weather_service):
+        """Testa validação de país inválido."""
+        with pytest.raises(ValueError) as exc:
+            weather_service._validate_input("Lisboa", "PRT")
+        assert "Código do país inválido" in str(exc.value)
+
+    def test_timeout_error(self, weather_service):
+        """Testa tratamento de timeout."""
+        with patch.object(weather_service.session, 'get', side_effect=requests.Timeout):
+            response = weather_service.get_weather("Lisboa", "PT")
+            
+            assert response.success is False
+            assert response.status == 408
+            assert "Timeout" in response.message
+
+    @pytest.mark.parametrize("exception,expected_status", [
+        (requests.ConnectionError(), 500),
+        (requests.RequestException(), 500),
+        (ValueError("Cidade inválida"), 400)
+    ])
+    def test_error_handling(self, weather_service, exception, expected_status):
+        """Testa diferentes cenários de erro."""
+        with patch.object(weather_service.session, 'get', side_effect=exception):
+            response = weather_service.get_weather("Lisboa", "PT")
+            
+            assert response.success is False
+            assert response.status == expected_status
+
+    def test_retry_mechanism(self, weather_service, mock_response):
+        """Testa mecanismo de retry em caso de timeout."""
+        with patch.object(weather_service.session, 'get') as mock_get:
+            mock_get.side_effect = [
+                requests.Timeout,
+                requests.ConnectionError,
+                mock_response
+            ]
+            
+            response = weather_service.get_weather("Lisboa", "PT")
+            
+            assert response.success is True
+            assert mock_get.call_count == 3
+
+    def test_invalid_api_response(self, weather_service):
+        """Testa resposta inválida da API."""
+        mock_response = Mock()
+        mock_response.json.return_value = {"cod": "404", "message": "city not found"}
+        
+        with patch.object(weather_service.session, 'get', return_value=mock_response):
+            response = weather_service.get_weather("CidadeInexistente", "PT")
+            
+            assert response.success is False
+            assert "API inválida" in response.message
+
+    def test_build_params(self, weather_service):
+        """Testa construção de parâmetros da requisição."""
+        params = weather_service._build_params("Lisboa", "PT")
+        
+        assert params["q"] == "Lisboa,PT"
+        assert params["appid"] == "test_key"
+        assert params["units"] == "metric"
+        assert params["lang"] == "pt"
