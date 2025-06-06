@@ -3,6 +3,7 @@ import requests
 from datetime import datetime
 from dataclasses import dataclass
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
+
 from src.config.settings import Settings
 from src.utils.logger import Logger
 from src.exceptions.weather_exceptions import WeatherAPIException
@@ -16,13 +17,20 @@ class WeatherResponse:
     message: str = ""
 
 class WeatherService:
-    """Serviço para obter dados meteorológicos."""
+    """
+    Serviço para obter dados meteorológicos.
+    """
     
-    def __init__(self):
-        """Inicializa o serviço com configurações e logger."""
+    def __init__(self, api_key: str):
+        """
+        Inicializa o serviço de meteorologia.
+
+        Args:
+            api_key (str): Chave da API OpenWeatherMap
+        """
+        self.api_key = api_key
         self.logger = Logger(__name__)
         self.base_url = "https://api.openweathermap.org/data/2.5/weather"
-        self.api_key = Settings.OPENWEATHER_API_KEY
         self.timeout = Settings.API_TIMEOUT
         self.session = self._create_session()
         

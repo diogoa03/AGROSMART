@@ -1,0 +1,18 @@
+import React from 'react';
+import './App.css';
+import WeatherDisplay from './components/WeatherDisplay';
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>AgroSmart</h1>
+      </header>
+      <main>
+        <WeatherDisplay />
+      </main>
+    </div>
+  );
+}
+
+export default App;
