@@ -2,7 +2,7 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from dataclasses import dataclass
 from src.utils.logger import Logger
-from src.models.recomendacao import Recomendacao
+from src.models.recomendacao import Recomendacao, PrioridadeEnum
 
 @dataclass
 class RecomendacaoResponse:
@@ -27,19 +27,19 @@ class RecomendacaoService:
             temperatura = dados_sensor['temperatura']
             
             recomendacao = Recomendacao()
-            recomendacao.data_criacao = datetime.now()
+            recomendacao.data_criacao = datetime.utcnow()
             
             if umidade < 20:
                 recomendacao.descricao = "Necessária irrigação imediata"
-                recomendacao.prioridade = "ALTA"
+                recomendacao.prioridade = PrioridadeEnum.ALTA
             elif umidade < 40:
                 recomendacao.descricao = "Programar irrigação para as próximas 24h"
-                recomendacao.prioridade = "MÉDIA"
+                recomendacao.prioridade = PrioridadeEnum.MEDIA
             else:
                 recomendacao.descricao = "Níveis de umidade adequados"
-                recomendacao.prioridade = "BAIXA"
+                recomendacao.prioridade = PrioridadeEnum.BAIXA
                 
-            self.logger.info(f"Recomendação gerada: {recomendacao.prioridade}")
+            self.logger.info(f"Recomendação gerada: {recomendacao.prioridade.value}")
             return RecomendacaoResponse(
                 success=True,
                 data=self._to_dict(recomendacao),
@@ -78,6 +78,6 @@ class RecomendacaoService:
         return {
             "id": recomendacao.id,
             "descricao": recomendacao.descricao,
-            "prioridade": recomendacao.prioridade,
-            "data_criacao": recomendacao.data_criacao.isoformat()
+            "prioridade": recomendacao.prioridade.value if hasattr(recomendacao.prioridade, "value") else recomendacao.prioridade,
+            "data_criacao": recomendacao.data_criacao.isoformat() if recomendacao.data_criacao else None
         }

@@ -32,15 +32,6 @@ class NotificacaoService:
     def criar(self, titulo: str, mensagem: str, tipo: str, usuario_id: int) -> NotificacaoResponse:
         """
         Cria uma nova notificação.
-        
-        Args:
-            titulo: Título da notificação
-            mensagem: Conteúdo da notificação
-            tipo: Tipo da notificação (ALERTA, INFO, AVISO)
-            usuario_id: ID do usuário destinatário
-            
-        Returns:
-            NotificacaoResponse com resultado da operação
         """
         try:
             # Sanitiza e valida entrada
@@ -55,7 +46,7 @@ class NotificacaoService:
                 mensagem=mensagem,
                 tipo=tipo,
                 usuario_id=usuario_id,
-                data_criacao=datetime.now(),
+                data_criacao=datetime.utcnow(),
                 lida=False
             )
             
@@ -107,11 +98,6 @@ class NotificacaoService:
     def listar_por_usuario(self, usuario_id: int, page: int = 1, per_page: int = 20) -> NotificacaoResponse:
         """
         Lista notificações de um usuário com paginação.
-        
-        Args:
-            usuario_id: ID do usuário
-            page: Número da página (default: 1)
-            per_page: Itens por página (default: 20)
         """
         try:
             offset = (page - 1) * per_page
@@ -174,7 +160,7 @@ class NotificacaoService:
                 )
 
             notificacao.lida = True
-            notificacao.data_leitura = datetime.now()
+            notificacao.data_leitura = datetime.utcnow()
             self.db.commit()
             
             self.logger.info(
