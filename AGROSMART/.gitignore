@@ -14,3 +14,7 @@ logs/
 # Cache
 __pycache__/
 .pytest_cache/
+
+# Python bytecode
+*.pyc
+*.pyo
