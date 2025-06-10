@@ -4,7 +4,7 @@ from datetime import datetime
 from dataclasses import dataclass
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception_type
 
-from src.config.settings import Settings
+from src.config.settings import settings  # Mudado de Settings para settings
 from src.utils.logger import Logger
 from src.exceptions.weather_exceptions import WeatherAPIException
 
@@ -23,10 +23,10 @@ class WeatherService:
     
     def __init__(self):
         """Inicializa o serviço de meteorologia."""
-        self.api_key = Settings.OPENWEATHER_API_KEY
+        self.api_key = settings.OPENWEATHER_API_KEY  # Mudado de Settings para settings
         self.logger = Logger(__name__)
         self.base_url = "https://api.openweathermap.org/data/2.5/weather"
-        self.timeout = Settings.API_TIMEOUT
+        self.timeout = settings.API_TIMEOUT  # Mudado de Settings para settings
         self.session = self._create_session()
         
     def _create_session(self) -> requests.Session:
