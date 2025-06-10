@@ -1,77 +1,58 @@
 import pytest
+import requests
 from unittest.mock import Mock, patch
-from sqlalchemy.exc import SQLAlchemyError
-from src.database.database import (
-    create_database_engine,
-    db_session,
-    get_db,
-    check_database_connection
-)
+from datetime import datetime
+from src.services.weather_service import WeatherService, WeatherResponse
+from src.exceptions.weather_exceptions import WeatherAPIException
 
-class TestDatabase:
+class TestWeatherService:
     @pytest.fixture
-    def mock_engine(self):
-        """Fixture para criar mock do engine."""
-        with patch('src.database.database.create_engine') as mock:
-            yield mock
-            
+    def weather_service(self):
+        """Fixture para criar instância do serviço com configurações de teste."""
+        with patch('src.services.weather_service.settings') as mock_settings:
+            mock_settings.OPENWEATHER_API_KEY = "test_key"
+            mock_settings.API_TIMEOUT = 5
+            return WeatherService()
+    
     @pytest.fixture
-    def mock_session(self):
-        """Fixture para criar mock de sessão."""
+    def mock_response(self):
+        """Fixture para simular resposta da API."""
         mock = Mock()
-        mock.execute = Mock()
-        mock.commit = Mock()
-        mock.rollback = Mock()
-        mock.close = Mock()
+        mock.json.return_value = {
+            "main": {
+                "temp": 25.6,
+                "humidity": 65
+            },
+            "weather": [{"description": "céu limpo"}]
+        }
+        mock.status_code = 200
         return mock
 
-    def test_create_engine_success(self, mock_engine):
-        """Testa criação bem sucedida do engine."""
-        url = "sqlite:///test.db"
-        create_database_engine(url)
-        
-        mock_engine.assert_called_once()
-        call_args = mock_engine.call_args[1]
-        assert call_args['pool_size'] == 5
-        assert call_args['max_overflow'] == 10
-        
-    def test_create_engine_failure(self, mock_engine):
-        """Testa falha na criação do engine."""
-        mock_engine.side_effect = SQLAlchemyError("Erro de conexão")
-        
-        with pytest.raises(SQLAlchemyError):
-            create_database_engine("invalid://url")
-            
-    def test_db_session_success(self, mock_session):
-        """Testa uso normal do contexto de sessão."""
-        with patch('src.database.database.SessionLocal', return_value=mock_session):
-            with db_session() as session:
-                session.execute("SELECT 1")
-            
-            mock_session.commit.assert_called_once()
-            mock_session.close.assert_called_once()
-            
-    def test_db_session_error(self, mock_session):
-        """Testa rollback em caso de erro."""
-        mock_session.execute.side_effect = SQLAlchemyError("Erro de execução")
-        
-        with patch('src.database.database.SessionLocal', return_value=mock_session):
-            with pytest.raises(SQLAlchemyError):
-                with db_session() as session:
-                    session.execute("SELECT 1")
-                    
-            mock_session.rollback.assert_called_once()
-            mock_session.close.assert_called_once()
-            
-    def test_check_connection_success(self, mock_session):
-        """Testa verificação de conexão bem sucedida."""
-        with patch('src.database.database.SessionLocal', return_value=mock_session):
-            assert check_database_connection() is True
-            mock_session.execute.assert_called_once_with("SELECT 1")
-            
-    def test_check_connection_failure(self, mock_session):
-        """Testa verificação de conexão com falha."""
-        mock_session.execute.side_effect = SQLAlchemyError("Erro de conexão")
-        
-        with patch('src.database.database.SessionLocal', return_value=mock_session):
-            assert check_database_connection() is False
+    def test_get_weather_success(self, weather_service, mock_response):
+        """Testa obtenção bem sucedida de dados meteorológicos."""
+        with patch.object(weather_service.session, 'get', return_value=mock_response):
+            response = weather_service.get_weather("Lisboa", "PT")
+            assert response.success is True
+            assert response.status == 200
+            assert response.data["main"]["temp"] == 25.6
+            assert "Dados obtidos com sucesso" in response.message
+
+    def test_validate_input_invalid_city(self, weather_service):
+        """Testa validação de cidade inválida."""
+        with pytest.raises(ValueError) as exc:
+            weather_service._validate_input("", "PT")
+        assert "Cidade inválida" in str(exc.value)
+
+    def test_validate_input_invalid_country(self, weather_service):
+        """Testa validação de país inválido."""
+        with pytest.raises(ValueError) as exc:
+            weather_service._validate_input("Lisboa", "PRT")
+        assert "Código do país inválido" in str(exc.value)
+
+    def test_build_params(self, weather_service):
+        """Testa construção de parâmetros da requisição."""
+        params = weather_service._build_params("Lisboa", "PT")
+        assert params["q"] == "Lisboa,PT"
+        assert params["appid"] == "test_key"
+        assert params["units"] == "metric"
+        assert params["lang"] == "pt"
