@@ -10,13 +10,6 @@ load_dotenv()
 class Settings:
     """
     Configurações da aplicação com validação e cache.
-    
-    Gerencia todas as configurações do sistema, incluindo:
-    - Configurações básicas (SECRET_KEY, DEBUG, PORT)
-    - Chaves de API (OpenWeather)
-    - Configurações de banco de dados
-    - Timeouts e limites
-    - Caminhos do sistema
     """
     
     # Valores padrão e constantes
@@ -49,7 +42,7 @@ class Settings:
         self.RATE_LIMIT = self._get_int("RATE_LIMIT", self.DEFAULT_RATE_LIMIT)
         
         # JWT Settings
-        self.JWT_SECRET_KEY = self._get_required_str("JWT_SECRET_KEY")
+        self.JWT_SECRET_KEY = self._get_str("JWT_SECRET_KEY", self.SECRET_KEY)  # Usa SECRET_KEY como fallback
         self.JWT_ALGORITHM = "HS256"
         self.JWT_ACCESS_TOKEN_EXPIRE_MINUTES = self._get_int("JWT_ACCESS_TOKEN_EXPIRES", 30)
         
@@ -90,8 +83,6 @@ class Settings:
             raise ValueError("DATABASE_URL é obrigatória")
         if not self.OPENWEATHER_API_KEY:
             raise ValueError("OPENWEATHER_API_KEY é obrigatória")
-        if not self.JWT_SECRET_KEY:
-            raise ValueError("JWT_SECRET_KEY é obrigatória")
 
 @lru_cache()
 def get_settings() -> Settings:
