@@ -5,7 +5,8 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 # Adiciona o diretório raiz ao PYTHONPATH
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(ROOT_DIR)
 
 @pytest.fixture
 def mock_settings():
