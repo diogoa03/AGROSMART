@@ -1,4 +1,5 @@
 from ..utils.logger import setup_logger
+from .notification_service import NotificationService
 
 logger = setup_logger()
 
@@ -13,6 +14,7 @@ class RecomendacaoService:
             'low': 60,    # Grapes prefer humidity above 60%
             'high': 85    # Above 85% increases risk of fungal diseases
         }
+        self.notification_service = NotificationService()
 
     def get_recommendation(self, weather_data):
         try:
@@ -54,8 +56,12 @@ class RecomendacaoService:
                 recommendation['should_irrigate'] = temp > 25
                 recommendation['reason'] = 'Normal conditions for grape cultivation'
 
+            # Create notifications based on recommendation
+            notifications = self.notification_service.create_notification(recommendation)
+            recommendation['notifications'] = notifications
+            
             return recommendation
-
+            
         except Exception as e:
             logger.error(f"Error generating grape cultivation recommendation: {str(e)}")
             raise
