@@ -1,4 +1,4 @@
-# AGROSMART (Versão Simplificada)
+# AGROSMART 
 
 ## Descrição
 
