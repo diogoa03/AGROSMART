@@ -2,16 +2,19 @@ from flask import Flask, jsonify, request, Response
 from flask_cors import CORS
 from typing import Dict, Any, Optional, Tuple
 from datetime import datetime
-from src.config.settings import Settings
+from src.config.settings import settings  # Changed from Settings to settings
 from src.services.weather_service import WeatherService
 from src.services.notificacao_service import NotificacaoService
 from src.middleware.auth import auth_required
 from src.utils.logger import Logger
 import traceback
 
+# Inicialização do app
 app = Flask(__name__)
 CORS(app)
-app.config['SECRET_KEY'] = Settings.SECRET_KEY
+
+# Configurações do Flask
+app.config['SECRET_KEY'] = settings.SECRET_KEY  # Using settings instance
 logger = Logger(__name__)
 
 # Instância dos serviços
@@ -177,7 +180,7 @@ def marcar_como_lida(notificacao_id: int) -> Response:
 
 if __name__ == '__main__':
     app.run(
-        host=Settings.HOST,
-        port=Settings.PORT,
-        debug=Settings.DEBUG
+        host=settings.HOST,  # Changed from Settings.HOST
+        port=settings.PORT,  # Changed from Settings.PORT  
+        debug=settings.DEBUG  # Changed from Settings.DEBUG
     )
