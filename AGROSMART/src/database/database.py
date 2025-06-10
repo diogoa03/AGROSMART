@@ -10,22 +10,36 @@ from src.utils.logger import Logger
 logger = Logger(__name__)
 
 def create_database_engine(url: str, **kwargs) -> Engine:
-    """Cria e configura o engine do banco de dados."""
+    """
+    Cria e configura o engine do banco de dados.
+    
+    Args:
+        url: URL de conexão com o banco
+        kwargs: Configurações adicionais
+        
+    Returns:
+        Engine do SQLAlchemy configurado
+    """
     try:
         default_settings = {
-            'pool_size': 5,
-            'max_overflow': 10,
-            'pool_timeout': 30,
-            'pool_recycle': 1800,
             'echo': settings.DEBUG
         }
+        
+        # Configurações específicas por tipo de banco
+        if url.startswith('sqlite'):
+            default_settings['connect_args'] = {'check_same_thread': False}
+        else:
+            # Configurações de pool apenas para outros bancos (não SQLite)
+            default_settings.update({
+                'pool_size': 5,
+                'max_overflow': 10,
+                'pool_timeout': 30,
+                'pool_recycle': 1800
+            })
+            
+        # Atualiza com configurações personalizadas
         default_settings.update(kwargs)
         
-        if url.startswith('sqlite'):
-            default_settings.pop('pool_size', None)
-            default_settings.pop('max_overflow', None)
-            default_settings['connect_args'] = {'check_same_thread': False}
-            
         return create_engine(url, **default_settings)
         
     except Exception as e:
