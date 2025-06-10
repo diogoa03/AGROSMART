@@ -18,17 +18,12 @@ class WeatherResponse:
 
 class WeatherService:
     """
-    Serviço para obter dados meteorológicos.
+    Serviço para obter dados meteorológicos da API OpenWeatherMap.
     """
     
-    def __init__(self, api_key: str):
-        """
-        Inicializa o serviço de meteorologia.
-
-        Args:
-            api_key (str): Chave da API OpenWeatherMap
-        """
-        self.api_key = api_key
+    def __init__(self):
+        """Inicializa o serviço de meteorologia."""
+        self.api_key = Settings.OPENWEATHER_API_KEY
         self.logger = Logger(__name__)
         self.base_url = "https://api.openweathermap.org/data/2.5/weather"
         self.timeout = Settings.API_TIMEOUT
@@ -145,7 +140,7 @@ class WeatherService:
                 f"Erro na requisição: {str(e)}",
                 extra={
                     "params": params,
-                    "status_code": getattr(response, "status_code", None),
+                    "status_code": getattr(e.response, "status_code", None),
                     "error_type": type(e).__name__
                 }
             )
