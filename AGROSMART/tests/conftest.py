@@ -17,6 +17,7 @@ def mock_settings():
         mock.DEBUG = True
         mock.OPENWEATHER_API_KEY = "test-key"
         mock.SECRET_KEY = "test-secret-key"
+        mock.LOGS_DIR = Path("tests/logs")
         yield mock
 
 @pytest.fixture
@@ -30,6 +31,17 @@ def setup_test_env():
     """Configura ambiente de teste."""
     os.environ["TESTING"] = "true"
     os.environ["DATABASE_URL"] = "sqlite:///test.db"
+    os.environ["SECRET_KEY"] = "test-secret-key-123456789012345678901234567890"
+    os.environ["OPENWEATHER_API_KEY"] = "test-weather-key"
+    
+    # Cria diretório de logs para testes
+    log_dir = Path("tests/logs")
+    log_dir.mkdir(exist_ok=True, parents=True)
+    
     yield
+    
+    # Limpa ambiente após testes
     os.environ.pop("TESTING", None)
     os.environ.pop("DATABASE_URL", None)
+    os.environ.pop("SECRET_KEY", None)
+    os.environ.pop("OPENWEATHER_API_KEY", None)
