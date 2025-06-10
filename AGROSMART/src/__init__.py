@@ -1,9 +1,7 @@
 """
-Pacote principal do AgroSmart (src).
-Inicializa configurações globais e garante importação dos módulos principais.
+Pacote principal do AgroSmart.
 """
+from pathlib import Path
 
-# Importa configurações globais para uso em todo o projeto
-from src.config.settings import settings
-
-# Torna o pacote src um pacote Python válido
+# Define o diretório raiz do projeto
+ROOT_DIR = Path(__file__).parent.parent
