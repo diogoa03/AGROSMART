@@ -1,97 +1,115 @@
-# AGROSMART
+# AGROSMART (Versão Simplificada)
 
 ## Descrição
 
-O **AgroSmart** é um sistema distribuído para gestão agrícola inteligente, desenvolvido em Python com Flask no backend e React no frontend. O sistema recolhe dados meteorológicos em tempo real da API OpenWeatherMap, monitoriza continuamente as condições atmosféricas e sugere práticas agrícolas como irrigação e fertilização, promovendo sustentabilidade e eficiência.
+**AgroSmart** é um sistema simplificado de gestão agrícola construído com backend em Python Flask e frontend em React. Recolhe dados meteorológicos em tempo real através da API OpenWeatherMap e fornece recomendações de irrigação baseadas nas condições meteorológicas atuais.
 
 ## Funcionalidades
 
-- **Monitorização Meteorológica:** Consulta automática e periódica dos dados de temperatura, humidade, precipitação e previsão de chuva.
-- **Recomendações Inteligentes:** Sugestão de ações agrícolas (rega, fertilização, etc.) com base nos dados recolhidos.
-- **Notificações em Tempo Real:** Envio de alertas e recomendações via WebSockets.
-- **Interface Web Responsiva:** Frontend minimalista em React.
-- **API RESTful:** Endpoints seguros para integração e automação.
-- **Documentação Automática:** Código documentado com Sphinx.
-- **Testes Unitários:** Cobertura de funcionalidades críticas.
-- **Trabalho Colaborativo:** Projeto versionado no GitHub.
+- **Monitorização Meteorológica:** Recolha automática de dados meteorológicos (temperatura, humidade, precipitação)
+- **Recomendações Inteligentes:** Sugestões de irrigação baseadas em dados meteorológicos
+- **Armazenamento JSON Simples:** Armazenamento de dados local baseado em ficheiros
+- **API REST:** Endpoints simples para integração
+- **Interface React:** Interface web moderna e responsiva
+- **Sistema de Registos:** Registos detalhados do sistema para monitorização
 
 ## Estrutura do Projeto
 
 ```
 AGROSMART/
 │
-├── app.py                  # Aplicação Flask principal
-├── src/                    # Código-fonte backend (serviços, modelos, utils)
-├── frontend-agrosmart/     # Aplicação React (frontend)
-├── tests/                  # Testes unitários
-├── docs/                   # Documentação Sphinx
-├── .env                    # Variáveis de ambiente (NÃO versionar)
-├── .env.example            # Exemplo de variáveis de ambiente
-├── requirements.txt        # Dependências Python
-├── README.md               # Este ficheiro
-└── websocket_server.py     # Servidor WebSocket
+├── backend/                # Backend Flask
+│   ├── app.py             # Aplicação Flask principal
+│   ├── src/
+│   │   ├── services/      # Lógica de negócio
+│   │   │   ├── weather_service.py
+│   │   │   └── recomendacao_service.py
+│   │   ├── storage/       # Armazenamento de dados
+│   │   │   └── data_store.py
+│   │   └── utils/        # Utilitários
+│   │       └── logger.py
+│   ├── data/             # Diretório de armazenamento JSON
+│   └── requirements.txt  # Dependências Python
+│
+├── frontend/              # Frontend React
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   ├── pages/
+│   │   └── App.tsx
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── .env                  # Variáveis de ambiente
+└── README.md            # Este ficheiro
 ```
 
-## Como executar
+## Configuração e Execução
 
-### 1. Clonar o repositório
+### Configuração do Backend
 
+1. Navegar para o diretório backend:
 ```sh
-git clone https://github.com/diogoa03/AGROSMART.git
-cd AGROSMART
+cd backend
 ```
 
-### 2. Configurar variáveis de ambiente
-
-Copie o ficheiro `.env.example` para `.env` e preencha com os seus dados:
-
+2. Criar ambiente virtual e instalar dependências:
 ```sh
-cp .env.example .env
-```
-
-### 3. Instalar dependências do backend
-
-```sh
+python -m venv venv
+venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 4. Executar o backend
+3. Copiar `.env.example` para `.env` e preencher a chave API do OpenWeatherMap:
+```sh
+copy .env.example .env
+```
 
+4. Executar o backend Flask:
 ```sh
 python app.py
 ```
 
-### 5. Executar o frontend
+### Configuração do Frontend
 
+1. Navegar para o diretório frontend:
 ```sh
-cd frontend-agrosmart
+cd frontend
+```
+
+2. Instalar dependências:
+```sh
 npm install
+```
+
+3. Executar servidor de desenvolvimento React:
+```sh
 npm start
 ```
 
-Aceda a [http://localhost:3000](http://localhost:3000) para ver a interface.
+Aceder à aplicação em [http://localhost:3000](http://localhost:3000)
+API Backend disponível em [http://localhost:5000](http://localhost:5000)
 
-## Testes
+## Endpoints da API
 
-Para correr os testes unitários:
-
-```sh
-pytest tests/
-```
-
-## Documentação
-
-A documentação técnica é gerada com Sphinx e pode ser consultada na pasta `docs/`.
+- `GET /api/weather` - Obter dados meteorológicos atuais
+- `GET /api/recommendations` - Obter recomendações de irrigação
+- `GET /api/history/weather` - Obter histórico meteorológico
 
 ## Tecnologias Utilizadas
 
-- **Python 3.10+**
-- **Flask**
-- **SQLAlchemy**
-- **WebSockets**
-- **React**
-- **Sphinx**
-- **pytest**
+Backend:
+- Python 3.10+
+- Flask
+- Requests (para chamadas API)
+- JSON (para armazenamento de dados)
+
+Frontend:
+- React 18
+- TypeScript
+- Material-UI
+- Axios
 
 ## Equipa
 
@@ -105,4 +123,4 @@ Este projeto é apenas para fins académicos.
 
 ---
 
-> **Nota:** Para produção, altere as chaves e configurações sensíveis no ficheiro `.env`.
+> **Nota:** Lembre-se de atualizar a sua chave API do OpenWeatherMap no ficheiro `.env`.
