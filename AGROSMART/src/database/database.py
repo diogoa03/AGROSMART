@@ -1,6 +1,7 @@
 from contextlib import contextmanager
 from typing import Generator, Any
-from sqlalchemy import create_engine, Engine
+from sqlalchemy import create_engine
+from sqlalchemy.engine.base import Engine  # Corrigido aqui
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.exc import SQLAlchemyError
 from src.config.settings import Settings
