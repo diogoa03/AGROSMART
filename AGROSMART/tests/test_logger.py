@@ -1,123 +1,95 @@
-"""
-Logger personalizado para o AgroSmart.
-Inclui rotação de arquivos, contexto extra e integração com settings globais.
-"""
-
+import pytest
 import logging
-import sys
-from datetime import datetime
+import tempfile
+import shutil
 from pathlib import Path
-from typing import Optional, Dict, Any
-from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
-from src.config.settings import Settings
+from src.utils.logger import Logger
+from unittest.mock import patch
 
-class Logger:
-    """
-    Logger personalizado com rotação de arquivos e contexto extra.
+@pytest.fixture
+def temp_log_dir():
+    """Cria diretório temporário para logs."""
+    temp_dir = Path(tempfile.mkdtemp())
+    yield temp_dir
+    shutil.rmtree(temp_dir)
+
+@pytest.fixture
+def mock_settings():
+    """Mock das configurações."""
+    with patch('src.config.settings.settings') as mock:
+        mock.LOGS_DIR = Path(tempfile.mkdtemp())
+        yield mock
+
+@pytest.fixture
+def logger(mock_settings):
+    """Fixture para criar Logger."""
+    return Logger("test")
+
+def test_logger_initialization(logger):
+    """Testa inicialização básica do logger."""
+    assert logger.logger.name == "test"
+    assert logger.logger.level == logging.INFO
+    assert len(logger.logger.handlers) == 3  # Arquivo diário, rotativo e console
+
+def test_log_levels(logger):
+    """Testa todos os níveis de log."""
+    messages = {
+        "info": "test info",
+        "error": "test error", 
+        "warning": "test warning",
+        "debug": "test debug",
+        "critical": "test critical"
+    }
     
-    Features:
-    - Rotação de logs por tamanho e tempo
-    - Formatação personalizada
-    - Suporte a contexto extra
-    - Log para arquivo e console
-    - Níveis de log configuráveis
-    """
+    logger.info(messages["info"])
+    logger.error(messages["error"])
+    logger.warning(messages["warning"])
+    logger.debug(messages["debug"])
+    logger.critical(messages["critical"])
+
+def test_format_extra(logger):
+    """Testa formatação de dados extras."""
+    # Teste com dict vazio
+    assert logger._format_extra({}) == "- {}"
     
-    MAX_BYTES = 10 * 1024 * 1024  # 10MB
-    BACKUP_COUNT = 5
-    DATE_FORMAT = '%Y-%m-%d %H:%M:%S'
+    # Teste com None
+    assert logger._format_extra(None) == ""
     
-    def __init__(self, name: str, log_level: int = logging.INFO):
-        """
-        Inicializa o logger com configurações personalizadas.
+    # Teste com dados
+    extra = {"key": "value"}
+    assert logger._format_extra(extra) == f"- {extra}"
+
+def test_log_with_extra(logger):
+    """Testa logging com dados extras."""
+    extra = {"temperature": 25.5, "humidity": 65}
+    logger.info("Weather data", extra=extra)
+
+def test_handlers_configuration(logger, mock_settings):
+    """Testa configuração dos handlers."""
+    handlers = logger.logger.handlers
+    
+    # Verifica tipos dos handlers
+    assert any(isinstance(h, logging.StreamHandler) for h in handlers)
+    assert any(isinstance(h, logging.handlers.RotatingFileHandler) for h in handlers)
+    assert any(isinstance(h, logging.handlers.TimedRotatingFileHandler) for h in handlers)
+
+def test_handler_formatters(logger):
+    """Testa formatadores dos handlers."""
+    for handler in logger.logger.handlers:
+        assert handler.formatter is not None
         
-        Args:
-            name: Nome do logger
-            log_level: Nível de log (default: INFO)
-        """
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(log_level)
-        
-        # Evita adicionar handlers duplicados
-        if not any(isinstance(h, (RotatingFileHandler, TimedRotatingFileHandler, logging.StreamHandler)) for h in self.logger.handlers):
-            self._setup_handlers()
+        if isinstance(handler, (logging.handlers.RotatingFileHandler, 
+                              logging.handlers.TimedRotatingFileHandler)):
+            # Handlers de arquivo devem usar formato detalhado
+            assert '[%(name)s:%(lineno)d]' in handler.formatter._fmt
+        else:
+            # Handler de console usa formato simples
+            assert handler.formatter._fmt == '%(levelname)s: %(message)s'
 
-    def _setup_handlers(self) -> None:
-        """
-        Configura handlers para arquivo e console.
-        """
-        log_dir = Settings.LOGS_DIR
-        log_dir.mkdir(exist_ok=True, parents=True)
-        
-        # Handler de arquivo com rotação por tamanho
-        size_handler = RotatingFileHandler(
-            log_dir / f"app_{datetime.now().strftime('%Y%m%d')}.log",
-            maxBytes=self.MAX_BYTES,
-            backupCount=self.BACKUP_COUNT,
-            encoding='utf-8'
-        )
-        size_handler.setFormatter(self._get_formatter(detailed=True))
-        
-        # Handler de arquivo com rotação diária
-        time_handler = TimedRotatingFileHandler(
-            log_dir / "app.log",
-            when='midnight',
-            interval=1,
-            backupCount=30,
-            encoding='utf-8'
-        )
-        time_handler.setFormatter(self._get_formatter(detailed=True))
-        
-        # Handler de console
-        console_handler = logging.StreamHandler(sys.stdout)
-        console_handler.setFormatter(self._get_formatter(detailed=False))
-        
-        self.logger.addHandler(size_handler)
-        self.logger.addHandler(time_handler)
-        self.logger.addHandler(console_handler)
-
-    def _get_formatter(self, detailed: bool = False) -> logging.Formatter:
-        """
-        Retorna o formatador de log apropriado.
-        """
-        if detailed:
-            return logging.Formatter(
-                '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)d] '
-                '%(message)s %(extra)s',
-                datefmt=self.DATE_FORMAT
-            )
-        return logging.Formatter('%(levelname)s: %(message)s')
-
-    def _format_extra(self, extra: Optional[Dict[str, Any]] = None) -> str:
-        """
-        Formata informações extras para o log.
-        """
-        if not extra:
-            return ""
-        try:
-            # Para dicionário vazio, retorna "- {}" (compatível com testes)
-            if isinstance(extra, dict) and not extra:
-                return "- {}"
-            return f"- {extra}"
-        except Exception:
-            return "- Error formatting extra data"
-
-    def info(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
-        """Registra mensagem com nível INFO."""
-        self.logger.info(message, extra={"extra": self._format_extra(extra)})
-
-    def error(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
-        """Registra mensagem com nível ERROR."""
-        self.logger.error(message, extra={"extra": self._format_extra(extra)})
-
-    def warning(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
-        """Registra mensagem com nível WARNING."""
-        self.logger.warning(message, extra={"extra": self._format_extra(extra)})
-
-    def debug(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
-        """Registra mensagem com nível DEBUG."""
-        self.logger.debug(message, extra={"extra": self._format_extra(extra)})
-
-    def critical(self, message: str, extra: Optional[Dict[str, Any]] = None) -> None:
-        """Registra mensagem com nível CRITICAL."""
-        self.logger.critical(message, extra={"extra": self._format_extra(extra)})
+def test_log_file_creation(logger, mock_settings):
+    """Testa criação de arquivos de log."""
+    test_message = "Test log message"
+    logger.info(test_message)
+    
+    log_files = list(mock_settings.LOGS_DIR.glob("*.log"))
+    assert len(log_files) >= 1

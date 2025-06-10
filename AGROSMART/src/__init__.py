@@ -1,7 +1,10 @@
 """
-Pacote principal do AgroSmart.
+Configurações e fixtures comuns para testes do AGROSMART.
 """
+import pytest
 from pathlib import Path
+from typing import Generator, Dict, Any
+from unittest.mock import Mock, patch
 
-# Define o diretório raiz do projeto
-ROOT_DIR = Path(__file__).parent.parent
+# Diretórios de teste
+TEST_DIR = Path(__file__).parent
