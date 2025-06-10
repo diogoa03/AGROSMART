@@ -2,12 +2,12 @@
 
 ## Descrição
 
-**AgroSmart** é um sistema simplificado de gestão agrícola construído com backend em Python Flask e frontend em React. Recolhe dados meteorológicos em tempo real através da API OpenWeatherMap e fornece recomendações de irrigação baseadas nas condições meteorológicas atuais.
+**AgroSmart** é um sistema de gestão agrícola construído com backend em Python Flask e frontend em React. Recolhe dados meteorológicos em tempo real através da API OpenWeatherMap e fornece recomendações de rega baseadas nas condições meteorológicas atuais.
 
 ## Funcionalidades
 
 - **Monitorização Meteorológica:** Recolha automática de dados meteorológicos (temperatura, humidade, precipitação)
-- **Recomendações Inteligentes:** Sugestões de irrigação baseadas em dados meteorológicos
+- **Recomendações Inteligentes:** Sugestões de rega baseadas em dados meteorológicos
 - **Armazenamento JSON Simples:** Armazenamento de dados local baseado em ficheiros
 - **API REST:** Endpoints simples para integração
 - **Interface React:** Interface web moderna e responsiva
@@ -49,7 +49,7 @@ AGROSMART/
 
 ### Configuração do Backend
 
-1. Navegar para o diretório backend:
+1. Navegar para a diretoria backend:
 ```sh
 cd backend
 ```
@@ -73,7 +73,7 @@ python app.py
 
 ### Configuração do Frontend
 
-1. Navegar para o diretório frontend:
+1. Navegar para a diretoria frontend:
 ```sh
 cd frontend
 ```
@@ -94,16 +94,18 @@ API Backend disponível em [http://localhost:5000](http://localhost:5000)
 ## Endpoints da API
 
 - `GET /api/weather` - Obter dados meteorológicos atuais
-- `GET /api/recommendations` - Obter recomendações de irrigação
+- `GET /api/recommendations` - Obter recomendações de rega
 - `GET /api/history/weather` - Obter histórico meteorológico
+- `POST /api/login` - Autenticação de utilizadores
 
 ## Tecnologias Utilizadas
 
 Backend:
 - Python 3.10+
-- Flask
+- Flask (Framework Web)
 - Requests (para chamadas API)
 - JSON (para armazenamento de dados)
+- Werkzeug (para segurança)
 
 Frontend:
 - React 18
@@ -123,4 +125,4 @@ Este projeto é apenas para fins académicos.
 
 ---
 
-> **Nota:** Lembre-se de atualizar a sua chave API do OpenWeatherMap no ficheiro `.env`.
+> **Nota:** Não se esqueça de atualizar a sua chave API do OpenWeatherMap no ficheiro `.env`.
