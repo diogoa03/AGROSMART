@@ -8,7 +8,7 @@ class TestRecomendacaoService(unittest.TestCase):
     def test_low_humidity_for_grapes(self):
         weather_data = {
             'temperature': 20,
-            'humidity': 55  # Below low threshold for grapes (60)
+            'humidity': 55   # Abaixo do limite inferior para uvas (60)
         }
         recommendation = self.service.get_recommendation(weather_data)
         
@@ -20,7 +20,7 @@ class TestRecomendacaoService(unittest.TestCase):
     def test_high_humidity_for_grapes(self):
         weather_data = {
             'temperature': 20,
-            'humidity': 90  # Above high threshold for grapes (85)
+            'humidity': 90  # Acima do limite superior para uvas (85)
         }
         recommendation = self.service.get_recommendation(weather_data)
         
@@ -32,7 +32,7 @@ class TestRecomendacaoService(unittest.TestCase):
     def test_optimal_conditions(self):
         weather_data = {
             'temperature': 25,
-            'humidity': 70  # Optimal conditions for grapes
+            'humidity': 70  # Condições ideais para uvas
         }
         recommendation = self.service.get_recommendation(weather_data)
         
@@ -41,7 +41,7 @@ class TestRecomendacaoService(unittest.TestCase):
         self.assertEqual(recommendation['temperature_status'], 'normal')
 
     def test_invalid_weather_data(self):
-        invalid_data = {'temperature': 20}  # Missing humidity
+        invalid_data = {'temperature': 20}  # Faltando umidade
         
         with self.assertRaises(Exception):
             self.service.get_recommendation(invalid_data)

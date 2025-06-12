@@ -3,28 +3,28 @@ import os
 from datetime import datetime
 
 def setup_logger():
-    # Create logs directory if it doesn't exist
+    # Cria o diretório de logs se não existir
     os.makedirs('logs', exist_ok=True)
     
-    # Create logger
+    # Cria o logger
     logger = logging.getLogger('agrosmart')
     logger.setLevel(logging.INFO)
     
-    # Create file handler
+    # Cria o manipulador de arquivo
     log_file = f'logs/agrosmart_{datetime.now().strftime("%Y%m%d")}.log'
     file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.INFO)
     
-    # Create console handler
+    # Cria o manipulador de console
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     
-    # Create formatter
+    # Cria o formatador
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
     console_handler.setFormatter(formatter)
     
-    # Add handlers to logger
+    # Adiciona os manipuladores ao logger
     logger.addHandler(file_handler)
     logger.addHandler(console_handler)
     

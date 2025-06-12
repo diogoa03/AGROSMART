@@ -6,12 +6,12 @@ from werkzeug.security import generate_password_hash
 
 class TestUserAuthentication(unittest.TestCase):
     def setUp(self):
-        # Use a test-specific users file
+        # Usar um arquivo de usuários específico para testes
         self.test_users_file = "data/test_users.json"
         self.user_store = UserStore()
         self.user_store.users_file = self.test_users_file
         
-        # Create test user data
+        # Criar dados de usuário de teste
         test_users = {
             "testuser": generate_password_hash("testpass123"),
             "admin": generate_password_hash("admin123")
@@ -21,7 +21,7 @@ class TestUserAuthentication(unittest.TestCase):
             json.dump(test_users, f)
 
     def tearDown(self):
-        # Clean up test file after tests
+        # Limpar o arquivo de teste após os testes
         if os.path.exists(self.test_users_file):
             os.remove(self.test_users_file)
 
@@ -46,7 +46,7 @@ class TestUserAuthentication(unittest.TestCase):
 
     def test_file_corruption(self):
         """Test behavior when users file is corrupted"""
-        # Corrupt the file with invalid JSON
+        # Corrompe o arquivo com JSON inválido
         with open(self.test_users_file, 'w') as f:
             f.write("invalid json content")
         

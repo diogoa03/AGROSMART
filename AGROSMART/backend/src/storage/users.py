@@ -14,7 +14,7 @@ class UserStore:
     def _init_users_file(self):
         if not os.path.exists(self.users_file):
             default_user = {
-                "admin": generate_password_hash("admin123")  # Default credentials
+                "admin": generate_password_hash("admin123")  # Credenciais padrão
             }
             with open(self.users_file, 'w') as f:
                 json.dump(default_user, f, indent=2)

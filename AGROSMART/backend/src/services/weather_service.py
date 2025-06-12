@@ -37,7 +37,7 @@ class WeatherService:
             }
             
             self.data_store.save_weather_data(simplified_data)
-            # Após obter os dados, emite para todos os clientes conectados
+            # Após obter os dados, emita para todos os clientes conectados
             socketio.emit('weather_update', simplified_data)
             return simplified_data
 

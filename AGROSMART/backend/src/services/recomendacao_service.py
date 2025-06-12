@@ -5,14 +5,14 @@ logger = setup_logger()
 
 class RecomendacaoService:
     def __init__(self):
-        # Thresholds specific for grape cultivation
+        # Limiares específicos para o cultivo de uvas
         self.temperature_thresholds = {
-            'low': 10,    # Grapes need minimum 10°C for growth
-            'high': 35    # Above 35°C can damage grape development
+            'low': 10,     # Uvas precisam de no mínimo 10°C para crescer
+            'high': 35    # Acima de 35°C pode prejudicar o desenvolvimento das uvas
         }
         self.humidity_thresholds = {
-            'low': 60,    # Grapes prefer humidity above 60%
-            'high': 85    # Above 85% increases risk of fungal diseases
+            'low': 60,    # Uvas preferem umidade acima de 60%
+            'high': 85    # Acima de 85% aumenta o risco de doenças fúngicas
         }
         self.notification_service = NotificationService()
 
@@ -30,7 +30,7 @@ class RecomendacaoService:
                 'warnings': []
             }
 
-            # Temperature analysis for grapes
+            # Análise de temperatura para uvas
             if temp > self.temperature_thresholds['high']:
                 recommendation['temperature_status'] = 'high'
                 recommendation['warnings'].append('High temperature may stress vines')
@@ -41,7 +41,7 @@ class RecomendacaoService:
                 recommendation['temperature_status'] = 'low'
                 recommendation['warnings'].append('Low temperature may slow growth')
 
-            # Humidity analysis for grapes
+            # Análise de umidade para uvas
             if humidity < self.humidity_thresholds['low']:
                 recommendation['humidity_status'] = 'low'
                 recommendation['should_irrigate'] = True
@@ -56,7 +56,7 @@ class RecomendacaoService:
                 recommendation['should_irrigate'] = temp > 25
                 recommendation['reason'] = 'Normal conditions for grape cultivation'
 
-            # Create notifications based on recommendation
+            # Criar notificações com base na recomendação
             notifications = self.notification_service.create_notification(recommendation)
             recommendation['notifications'] = notifications
             

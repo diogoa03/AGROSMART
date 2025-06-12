@@ -29,20 +29,29 @@ AGROSMART/
 │   │   └── utils/        # Utilitários
 │   │       └── logger.py
 │   ├── data/             # Diretório de armazenamento JSON
+│   ├── tests/            # Testes unitários
+│   │   ├── test_weather_service.py
+│   │   ├── test_recomendacao_service.py
+│   │   ├── test_notification_service.py
+│   │   └── test_user_auth.py
+│   ├── docs/             # Documentação Sphinx
+│   │   ├── source/
+│   │   └── build/
 │   └── requirements.txt  # Dependências Python
 │
 ├── frontend/              # Frontend React
 │   ├── public/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── services/
-│   │   ├── pages/
+│   │   ├── components/   # Componentes React
+│   │   ├── services/     # Lógica de chamadas API
+│   │   ├── pages/        # Páginas principais
 │   │   └── App.tsx
 │   ├── package.json
 │   └── tsconfig.json
 │
 ├── .env                  # Variáveis de ambiente
-└── README.md            # Este ficheiro
+├── .env.example          # Exemplo de variáveis de ambiente
+└── [README.md]           # Este ficheiro
 ```
 
 ## Configuração e Execução

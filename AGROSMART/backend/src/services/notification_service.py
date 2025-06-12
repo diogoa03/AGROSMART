@@ -16,7 +16,7 @@ class NotificationService:
         try:
             notifications = []
             
-            # Check temperature conditions
+            # Verifica condições de temperatura
             if recommendation['temperature_status'] == 'high':
                 notifications.append({
                     'type': 'TEMPERATURE_ALERT',
@@ -26,7 +26,7 @@ class NotificationService:
                     'details': 'Aumentar irrigação e monitorizar stress das vinhas'
                 })
             
-            # Check humidity conditions
+            # Verifica condições de humidade
             if recommendation['humidity_status'] == 'high':
                 notifications.append({
                     'type': 'HUMIDITY_ALERT',
@@ -44,7 +44,7 @@ class NotificationService:
                     'details': 'Considerar aumento da irrigação'
                 })
 
-            # Add irrigation recommendations
+            # Adiciona recomendações de irrigação
             if recommendation['should_irrigate']:
                 notifications.append({
                     'type': 'IRRIGATION_ALERT',
@@ -54,7 +54,7 @@ class NotificationService:
                     'details': recommendation['reason']
                 })
 
-            # Process warnings
+            # Processa avisos
             for warning in recommendation['warnings']:
                 notifications.append({
                     'type': 'WARNING',
