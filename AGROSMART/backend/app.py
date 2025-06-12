@@ -61,5 +61,26 @@ def get_weather_history():
         logger.error(f"Error getting weather history: {str(e)}")
         return jsonify({"error": "Failed to fetch weather history"}), 500
 
+@app.route('/api/notifications', methods=['GET'])
+@require_auth
+def get_notifications():
+    try:
+        severity = request.args.get('severity', None)
+        notifications = recomendacao_service.notification_service.get_active_notifications(severity)
+        return jsonify(notifications)
+    except Exception as e:
+        logger.error(f"Error getting notifications: {str(e)}")
+        return jsonify({"error": "Failed to fetch notifications"}), 500
+
+@app.route('/api/notifications', methods=['DELETE'])
+@require_auth
+def clear_notifications():
+    try:
+        recomendacao_service.notification_service.clear_notifications()
+        return jsonify({"message": "Notifications cleared successfully"})
+    except Exception as e:
+        logger.error(f"Error clearing notifications: {str(e)}")
+        return jsonify({"error": "Failed to clear notifications"}), 500
+
 if __name__ == '__main__':
     app.run(debug=True)

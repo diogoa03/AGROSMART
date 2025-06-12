@@ -97,6 +97,8 @@ API Backend disponível em [http://localhost:5000](http://localhost:5000)
 - `GET /api/recommendations` - Obter recomendações de rega
 - `GET /api/history/weather` - Obter histórico meteorológico
 - `POST /api/login` - Autenticação de utilizadores
+- `GET /api/notifications` - Obter notificações ativas (parâmetro opcional: severity=HIGH/MEDIUM/LOW)
+- `DELETE /api/notifications` - Limpar todas as notificações
 
 ## Tecnologias Utilizadas
 
