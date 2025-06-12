@@ -1,0 +1,130 @@
+2025-06-12 11:42:28,205 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:42:28,205 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:42:28,205 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:42:28,205 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:42:28,205 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:42:28,805 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:42:28,805 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:42:28,805 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:42:28,805 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:42:28,805 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:42:30,030 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,030 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,030 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,030 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,030 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,031 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,031 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,031 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,031 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,031 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,181 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,181 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,181 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,181 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,181 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:42:30,182 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,182 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,182 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,182 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:42:30,182 - agrosmart - ERROR - Error fetching weather data: 'NoneType' object has no attribute 'emit'
+2025-06-12 11:44:43,216 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:44:43,216 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:44:43,216 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:44:43,216 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:44:43,216 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:44:43,911 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:44:43,911 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:44:43,911 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:44:43,911 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:44:43,911 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:44:45,294 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,294 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,294 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,294 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,294 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,428 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,428 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,428 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,428 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,428 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:44:45,437 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:44:45,437 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:44:45,437 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:44:45,437 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:44:45,437 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:45:44,782 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:45:44,782 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:45:44,782 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:45:44,782 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:45:44,782 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:45:45,353 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:45:45,353 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:45:45,353 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:45:45,353 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:45:45,353 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:45:46,535 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,535 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,535 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,535 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,535 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,647 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,647 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,647 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,647 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,647 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:45:46,656 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:45:46,656 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:45:46,656 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:45:46,656 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:45:46,656 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:47:03,805 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:47:03,805 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:47:03,805 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:47:03,805 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:47:03,805 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:47:04,536 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:47:04,536 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:47:04,536 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:47:04,536 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:47:04,536 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:47:06,011 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,011 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,011 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,011 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,011 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,125 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,125 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,125 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,125 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,125 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:47:06,135 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:47:06,135 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:47:06,135 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:47:06,135 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:47:06,135 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:51:20,005 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:51:20,005 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:51:20,005 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:51:20,005 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:51:20,005 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-12 11:51:20,702 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:51:20,702 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:51:20,702 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:51:20,702 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:51:20,702 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-12 11:51:22,210 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,210 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,210 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,210 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,210 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,331 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,331 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,331 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,331 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,331 - agrosmart - INFO - Weather data saved successfully
+2025-06-12 11:51:22,339 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:51:22,339 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:51:22,339 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:51:22,339 - agrosmart - ERROR - Error fetching weather data: API Error
+2025-06-12 11:51:22,339 - agrosmart - ERROR - Error fetching weather data: API Error
