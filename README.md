@@ -51,13 +51,30 @@ AGROSMART/
 
 ## 🚀 Instalação
 
+### 0. Clonar o Repositório
+```bash
+# Clone o repositório
+git clone https://github.com/diogoa03/AGROSMART.git
+
+# Entre na pasta do projeto
+cd AGROSMART
+```
+
 ### 1. Backend
 
 1. **Preparar Ambiente**
 ```bash
+# Entre na pasta do backend
 cd backend
+
+# Crie o ambiente virtual
 python -m venv venv
+
+# Ative o ambiente virtual
+# No Windows:
 venv\Scripts\activate
+# No Linux/Mac:
+source venv/bin/activate
 ```
 
 2. **Instalar Dependências**
@@ -67,27 +84,47 @@ pip install -r requirements.txt
 
 3. **Configurar Ambiente**
 ```bash
-copy .env.example .env
-# Adicione sua API_KEY do OpenWeatherMap no .env
-```
+# Copie o arquivo de exemplo
+copy .env.example .env  # Windows
+# ou
+cp .env.example .env    # Linux/Mac
 
+# Edite o arquivo .env e adicione sua API_KEY do OpenWeatherMap
+# Obtenha sua chave em: https://openweathermap.org/api
+```
 4. **Iniciar Servidor**
 ```bash
 python app.py
+# O servidor estará rodando em http://localhost:5000
 ```
 
 ### 2. Frontend
 
 1. **Instalar Dependências**
 ```bash
+# Entre na pasta do frontend
 cd frontend
+
+# Instale as dependências
 npm install
 ```
 
 2. **Iniciar Aplicação**
 ```bash
 npm start
+# A aplicação estará disponível em http://localhost:3000
 ```
+
+### 3. Verificação da Instalação
+
+1. **Verificar Serviços**
+- Backend: http://localhost:5000/api/health
+- Frontend: http://localhost:3000
+
+2. **Credenciais Padrão**
+- Usuário: admin
+- Senha: admin123
+
 
 ## 📡 API Endpoints
 
