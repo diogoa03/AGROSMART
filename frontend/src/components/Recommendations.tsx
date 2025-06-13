@@ -3,8 +3,7 @@ import { fetchRecommendations } from '../services/api';
 import { Recommendation } from '../types';
 
 const Recommendations: React.FC = () => {
-    const [recommendations, setRecommendations] = useState<Recommendation | null>(null);
-    const [notifications, setNotifications] = useState<any[]>([]);
+    const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -18,19 +17,7 @@ const Recommendations: React.FC = () => {
                     return;
                 }
                 const data = await fetchRecommendations(token);
-                setRecommendations(data);
-                
-                // Set example notifications if none exist
-                const exampleNotifications = [
-                    {
-                        type: 'HUMIDITY_ALERT',
-                        message: 'WARNING',
-                        severity: 'HIGH',
-                        details: 'Solo com níveis baixos de umidade detectado. Irrigação recomendada urgentemente.'
-                    }
-                ];
-                
-                setNotifications(data.notifications || exampleNotifications);
+                setRecommendation(data);
             } catch (err) {
                 setError('Failed to fetch recommendations');
             } finally {
@@ -52,18 +39,36 @@ const Recommendations: React.FC = () => {
     return (
         <div className="card-container">
             <h2 className="card-header">Recomendações de Irrigação</h2>
-            <div>
-                {notifications.map((notification, index) => (
-                    <div key={index} className={`notification-item severity-${notification.severity}`}>
-                        <div className="notification-type">{notification.type}:</div>
-                        <div>{notification.message}</div>
-                        {notification.details && <div className="notification-details">{notification.details}</div>}
+            
+            {recommendation ? (
+                <div className="recommendation-details">
+                    <div className="recommendation-summary">
+                        <h3>Resumo:</h3>
+                        <p><strong>Deve irrigar:</strong> {recommendation.should_irrigate ? 'Sim' : 'Não'}</p>
+                        <p><strong>Intensidade:</strong> {recommendation.intensity}</p>
+                        <p><strong>Motivo:</strong> {recommendation.reason}</p>
                     </div>
-                ))}
-                {notifications.length === 0 && (
-                    <div>Sem recomendações de irrigação neste momento.</div>
-                )}
-            </div>
+                    
+                    <div className="recommendation-conditions">
+                        <h3>Condições Atuais:</h3>
+                        <p><strong>Temperatura:</strong> {recommendation.temperature_status}</p>
+                        <p><strong>Humidade:</strong> {recommendation.humidity_status}</p>
+                    </div>
+                    
+                    {recommendation.warnings && recommendation.warnings.length > 0 && (
+                        <div className="recommendation-warnings">
+                            <h3>Avisos:</h3>
+                            <ul>
+                                {recommendation.warnings.map((warning, index) => (
+                                    <li key={index}>{warning}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div>Sem recomendações de irrigação neste momento.</div>
+            )}
         </div>
     );
 };

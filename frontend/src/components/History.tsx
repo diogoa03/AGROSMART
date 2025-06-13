@@ -58,10 +58,10 @@ const History: React.FC = () => {
             <table>
                 <thead>
                     <tr>
-                        <th>Temperature</th>
-                        <th>Humidity</th>
-                        <th>Description</th>
-                        <th>Timestamp</th>
+                        <th>Temperatura</th>
+                        <th>Humidade</th>
+                        <th>Descrição</th>
+                        <th>Data/Hora</th>
                     </tr>
                 </thead>
                 <tbody>

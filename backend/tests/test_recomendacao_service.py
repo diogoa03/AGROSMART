@@ -13,9 +13,9 @@ class TestRecomendacaoService(unittest.TestCase):
         recommendation = self.service.get_recommendation(weather_data)
         
         self.assertTrue(recommendation['should_irrigate'])
-        self.assertEqual(recommendation['intensity'], 'high')
-        self.assertEqual(recommendation['humidity_status'], 'low')
-        self.assertTrue('grape development' in recommendation['reason'].lower())
+        self.assertEqual(recommendation['intensity'], 'elevada')  # Alterado para 'elevada' em vez de 'high'
+        self.assertEqual(recommendation['humidity_status'], 'baixa')  # Alterado para 'baixa' em vez de 'low'
+        self.assertTrue('desenvolvimento das uvas' in recommendation['reason'].lower())  # Verificando texto em português
 
     def test_high_humidity_for_grapes(self):
         weather_data = {
@@ -25,20 +25,21 @@ class TestRecomendacaoService(unittest.TestCase):
         recommendation = self.service.get_recommendation(weather_data)
         
         self.assertFalse(recommendation['should_irrigate'])
-        self.assertEqual(recommendation['humidity_status'], 'high')
-        self.assertTrue('fungal' in recommendation['reason'].lower())
-        self.assertTrue(any('fungal diseases' in warning for warning in recommendation['warnings']))
+        self.assertEqual(recommendation['humidity_status'], 'elevada')  # Alterado para 'elevada' em vez de 'high'
+        self.assertTrue('fúngicas' in recommendation['reason'].lower())  # Verificando texto em português
+        self.assertTrue(any('míldio' in warning.lower() for warning in recommendation['warnings']))  # Verificando texto em português
 
     def test_optimal_conditions(self):
         weather_data = {
-            'temperature': 25,
+            'temperature': 22,  # Temperatura normal
             'humidity': 70  # Optimal conditions for grapes
         }
         recommendation = self.service.get_recommendation(weather_data)
         
-        self.assertTrue('Normal conditions' in recommendation['reason'])
+        self.assertEqual(recommendation['reason'], 'Condições normais para a cultura da vinha')  # Texto exato em português
         self.assertEqual(recommendation['humidity_status'], 'normal')
         self.assertEqual(recommendation['temperature_status'], 'normal')
+        self.assertEqual(recommendation['intensity'], 'baixa')  # Verificando que a intensidade é 'baixa' quando temp < 25
 
     def test_invalid_weather_data(self):
         invalid_data = {'temperature': 20}  # Missing humidity

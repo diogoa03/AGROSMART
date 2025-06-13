@@ -28,15 +28,29 @@ class WeatherService:
             response.raise_for_status()
             
             weather_data = response.json()
+            # Tradução manual das descrições meteorológicas mais comuns
+            description_en_pt = {
+                'clear sky': 'céu limpo',
+                'few clouds': 'poucas nuvens',
+                'scattered clouds': 'nuvens dispersas',
+                'broken clouds': 'nuvens fragmentadas',
+                'shower rain': 'aguaceiros',
+                'rain': 'chuva',
+                'thunderstorm': 'trovoada',
+                'snow': 'neve',
+                'mist': 'nevoeiro'
+            }
+            description_original = weather_data['weather'][0]['description']
+            description_pt = description_en_pt.get(description_original.lower(), description_original)
+
             simplified_data = {
                 'temperature': weather_data['main']['temp'],
                 'humidity': weather_data['main']['humidity'],
-                'description': weather_data['weather'][0]['description'],
+                'description': description_pt,
                 'timestamp': datetime.now().isoformat()
             }
             
             self.data_store.save_weather_data(simplified_data)
-            # Use a instância correta do socketio
             self.socketio.emit('weather_update', simplified_data)
             return simplified_data
 

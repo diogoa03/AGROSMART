@@ -7,7 +7,7 @@ logger = setup_logger()
 class DataStore:
     def __init__(self):
         self.data_dir = "data"
-        self.weather_file = os.path.join(self.data_dir, "weather_data.json")
+        self.weather_file = os.path.join(str(self.data_dir), "weather_data.json")
         os.makedirs(self.data_dir, exist_ok=True)
 
     def save_weather_data(self, data):

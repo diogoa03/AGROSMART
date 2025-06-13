@@ -92,6 +92,16 @@ def clear_notifications():
         logger.error(f"Error clearing notifications: {str(e)}")
         return jsonify({"error": "Failed to clear notifications"}), 500
 
+@app.route('/api/notifications/<notification_id>', methods=['DELETE'])
+@require_auth
+def delete_notification(notification_id):
+    try:
+        recomendacao_service.notification_service.delete_notification(notification_id)
+        return jsonify({"message": "Notification deleted successfully"})
+    except Exception as e:
+        logger.error(f"Error deleting notification: {str(e)}")
+        return jsonify({"error": "Failed to delete notification"}), 500
+
 @app.before_first_request
 def start_background_task():
     thread = threading.Thread(target=background_weather_updates)

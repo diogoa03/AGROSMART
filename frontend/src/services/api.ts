@@ -39,6 +39,24 @@ export async function fetchNotifications(token: string) {
     return response.data;
 }
 
+export async function clearNotifications(token: string) {
+    const response = await axios.delete(`${API_URL}/notifications`, {
+        headers: {
+            Authorization: `Basic ${token}`,
+        },
+    });
+    return response.data;
+}
+
+export async function deleteNotification(token: string, notificationId: string) {
+    const response = await axios.delete(`${API_URL}/notifications/${notificationId}`, {
+        headers: {
+            Authorization: `Basic ${token}`,
+        },
+    });
+    return response.data;
+}
+
 export async function fetchHistory(token: string) {
     const response = await axios.get(`${API_URL}/history/weather`, {
         headers: {

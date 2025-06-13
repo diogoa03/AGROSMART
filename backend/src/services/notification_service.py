@@ -85,3 +85,8 @@ class NotificationService:
 
     def clear_notifications(self):
         self.notifications = []
+
+    def delete_notification(self, notification_id):
+        self.notifications = [
+            n for n in self.notifications if str(n.get('id')) != str(notification_id)
+        ]

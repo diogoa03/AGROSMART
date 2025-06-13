@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchNotifications } from '../services/api';
+import { fetchNotifications, clearNotifications, deleteNotification } from '../services/api';
 import { Notification } from '../types';
 
 interface EnhancedNotification extends Notification {
@@ -29,8 +29,8 @@ const Notifications: React.FC = () => {
                     const exampleNotifications = [
                         {
                             id: '1',
-                            type: 'Alerta de Umidade',
-                            message: 'Níveis críticos de umidade detectados',
+                            type: 'Alerta de Humidade',
+                            message: 'Níveis críticos de humidade detectados',
                             severity: 'HIGH',
                             timestamp: new Date().toISOString(),
                             details: 'Recomenda-se irrigação imediata',
@@ -86,12 +86,34 @@ const Notifications: React.FC = () => {
         );
     };
 
-    const ignoreNotification = (id: string) => {
-        setNotifications(prevNotifications => 
-            prevNotifications.map(notification => 
-                notification.id === id ? { ...notification, ignored: true } : notification
-            )
-        );
+    const ignoreNotification = async (id: string) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setError('No authentication token found');
+                return;
+            }
+            await deleteNotification(token, id);
+            setNotifications(prevNotifications =>
+                prevNotifications.filter(notification => notification.id !== id)
+            );
+        } catch (err) {
+            setError('Falha ao ignorar notificação');
+        }
+    };
+
+    const handleClearNotifications = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setError('No authentication token found');
+                return;
+            }
+            await clearNotifications(token);
+            setNotifications([]); // Clear local state as well
+        } catch (err) {
+            setError('Falha ao limpar notificações');
+        }
     };
 
     const getSeverityLabel = (severity: string) => {
@@ -120,6 +142,13 @@ const Notifications: React.FC = () => {
     return (
         <div className="card-container">
             <h2 className="card-header">Notificações</h2>
+            <button 
+                className="action-button ignore" 
+                style={{ marginBottom: '1rem' }}
+                onClick={handleClearNotifications}
+            >
+                Limpar todas as notificações
+            </button>
             <div>
                 {activeNotifications.length === 0 ? (
                     <div className="empty-state">Sem notificações neste momento.</div>

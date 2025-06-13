@@ -23,7 +23,7 @@ class RecomendacaoService:
 
             recommendation = {
                 'should_irrigate': False,
-                'intensity': 'none',
+                'intensity': 'nenhuma',
                 'reason': '',
                 'temperature_status': 'normal',
                 'humidity_status': 'normal',
@@ -32,36 +32,34 @@ class RecomendacaoService:
 
             # Temperature analysis for grapes
             if temp > self.temperature_thresholds['high']:
-                recommendation['temperature_status'] = 'high'
-                recommendation['warnings'].append('High temperature may stress vines')
+                recommendation['temperature_status'] = 'elevada'
+                recommendation['warnings'].append('Temperatura elevada pode causar stress nas vinhas')
                 recommendation['should_irrigate'] = True
-                recommendation['intensity'] = 'high'
-                recommendation['reason'] = 'High temperature requires increased irrigation'
+                recommendation['intensity'] = 'elevada'
+                recommendation['reason'] = 'Temperatura elevada requer aumento da irrigação'
             elif temp < self.temperature_thresholds['low']:
-                recommendation['temperature_status'] = 'low'
-                recommendation['warnings'].append('Low temperature may slow growth')
+                recommendation['temperature_status'] = 'baixa'
+                recommendation['warnings'].append('Temperatura baixa pode atrasar o crescimento')
 
             # Humidity analysis for grapes
             if humidity < self.humidity_thresholds['low']:
-                recommendation['humidity_status'] = 'low'
+                recommendation['humidity_status'] = 'baixa'
                 recommendation['should_irrigate'] = True
-                recommendation['intensity'] = 'high'
-                recommendation['reason'] = 'Low humidity may affect grape development'
+                recommendation['intensity'] = 'elevada'
+                recommendation['reason'] = 'Humidade baixa pode afetar o desenvolvimento das uvas'
             elif humidity > self.humidity_thresholds['high']:
-                recommendation['humidity_status'] = 'high'
-                recommendation['reason'] = 'High humidity - monitor for fungal diseases'
-                recommendation['warnings'].append('Risk of powdery mildew and other fungal diseases')
+                recommendation['humidity_status'] = 'elevada'
+                recommendation['reason'] = 'Humidade elevada - monitorizar doenças fúngicas'
+                recommendation['warnings'].append('Risco de míldio e outras doenças fúngicas')
             else:
-                recommendation['intensity'] = 'medium' if temp > 25 else 'low'
+                recommendation['intensity'] = 'média' if temp > 25 else 'baixa'
                 recommendation['should_irrigate'] = temp > 25
-                recommendation['reason'] = 'Normal conditions for grape cultivation'
-
-            # Create notifications based on recommendation
-            notifications = self.notification_service.create_notification(recommendation)
-            recommendation['notifications'] = notifications
+                recommendation['reason'] = 'Condições normais para a cultura da vinha'
             
+            # Don't create notifications based on recommendations anymore
+            # Just return the recommendation without adding notifications
             return recommendation
             
         except Exception as e:
-            logger.error(f"Error generating grape cultivation recommendation: {str(e)}")
+            logger.error(f"Erro ao gerar recomendação para cultivo de uvas: {str(e)}")
             raise
