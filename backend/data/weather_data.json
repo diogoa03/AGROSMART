@@ -1,0 +1,146 @@
+[
+  {
+    "temperature": 19.73,
+    "humidity": 83,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:44:52.000427"
+  },
+  {
+    "temperature": 19.73,
+    "humidity": 83,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:45:52.133236"
+  },
+  {
+    "temperature": 19.73,
+    "humidity": 83,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:46:52.262341"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:47:52.395906"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:48:52.511226"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:49:52.632748"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:50:52.752736"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:51:20.211009"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:51:24.392984"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:51:30.461193"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:51:38.065126"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:51:40.373042"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:51:52.873121"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:52:00.804396"
+  },
+  {
+    "temperature": 21.73,
+    "humidity": 78,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T11:52:08.231576"
+  },
+  {
+    "temperature": 22.5,
+    "humidity": 70,
+    "description": "clear sky",
+    "timestamp": "2025-06-13T12:11:49.913712"
+  },
+  {
+    "temperature": 22.5,
+    "humidity": 70,
+    "description": "clear sky",
+    "timestamp": "2025-06-13T12:11:49.916258"
+  },
+  {
+    "temperature": 22.5,
+    "humidity": 70,
+    "description": "clear sky",
+    "timestamp": "2025-06-13T12:15:13.960071"
+  },
+  {
+    "temperature": 22.5,
+    "humidity": 70,
+    "description": "clear sky",
+    "timestamp": "2025-06-13T12:15:13.962402"
+  },
+  {
+    "temperature": 22.5,
+    "humidity": 70,
+    "description": "clear sky",
+    "timestamp": "2025-06-13T12:49:27.734560"
+  },
+  {
+    "temperature": 22.5,
+    "humidity": 70,
+    "description": "clear sky",
+    "timestamp": "2025-06-13T12:49:27.736823"
+  },
+  {
+    "temperature": 22.73,
+    "humidity": 60,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T12:54:50.078985"
+  },
+  {
+    "temperature": 22.73,
+    "humidity": 60,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T12:54:50.929138"
+  },
+  {
+    "temperature": 22.73,
+    "humidity": 60,
+    "description": "broken clouds",
+    "timestamp": "2025-06-13T12:54:59.453720"
+  }
+]
