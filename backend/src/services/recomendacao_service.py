@@ -1,26 +1,33 @@
 from ..utils.logger import setup_logger
 from .notification_service import NotificationService
 
+# configuração do logger para registo de eventos
 logger = setup_logger()
 
 class RecomendacaoService:
     def __init__(self):
-        # Thresholds specific for grape cultivation
+
+        # limiares específicos para o cultivo de uvas
         self.temperature_thresholds = {
-            'low': 10,    # Grapes need minimum 10°C for growth
-            'high': 35    # Above 35°C can damage grape development
+            'low': 10,    # as uvas necessitam de pelo menos 10°C para crescimento
+            'high': 35    # acima de 35°C pode danificar o desenvolvimento das uvas
         }
         self.humidity_thresholds = {
-            'low': 60,    # Grapes prefer humidity above 60%
-            'high': 85    # Above 85% increases risk of fungal diseases
+            'low': 60,    # as uvas preferem humidade acima de 60%
+            'high': 85    # acima de 85% aumenta o risco de doenças fúngicas
         }
+
+        # inicialização do serviço de notificações
         self.notification_service = NotificationService()
 
     def get_recommendation(self, weather_data):
         try:
+
+            # extração dos dados meteorológicos
             temp = weather_data['temperature']
             humidity = weather_data['humidity']
 
+            # estrutura base da recomendação
             recommendation = {
                 'should_irrigate': False,
                 'intensity': 'nenhuma',
@@ -30,7 +37,7 @@ class RecomendacaoService:
                 'warnings': []
             }
 
-            # Temperature analysis for grapes
+            # análise da temperatura para vinhas
             if temp > self.temperature_thresholds['high']:
                 recommendation['temperature_status'] = 'elevada'
                 recommendation['warnings'].append('Temperatura elevada pode causar stress nas vinhas')
@@ -41,7 +48,7 @@ class RecomendacaoService:
                 recommendation['temperature_status'] = 'baixa'
                 recommendation['warnings'].append('Temperatura baixa pode atrasar o crescimento')
 
-            # Humidity analysis for grapes
+            # análise da humidade para vinhas
             if humidity < self.humidity_thresholds['low']:
                 recommendation['humidity_status'] = 'baixa'
                 recommendation['should_irrigate'] = True
@@ -52,14 +59,15 @@ class RecomendacaoService:
                 recommendation['reason'] = 'Humidade elevada - monitorizar doenças fúngicas'
                 recommendation['warnings'].append('Risco de míldio e outras doenças fúngicas')
             else:
+                # condições normais de humidade
                 recommendation['intensity'] = 'média' if temp > 25 else 'baixa'
                 recommendation['should_irrigate'] = temp > 25
                 recommendation['reason'] = 'Condições normais para a cultura da vinha'
             
-            # Don't create notifications based on recommendations anymore
-            # Just return the recommendation without adding notifications
+            self.notification_service.create_notification(recommendation)
+
             return recommendation
-            
         except Exception as e:
+            # Registo de erro no logger
             logger.error(f"Erro ao gerar recomendação para cultivo de uvas: {str(e)}")
             raise

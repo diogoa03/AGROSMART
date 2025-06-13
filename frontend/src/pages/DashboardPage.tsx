@@ -12,7 +12,7 @@ const DashboardPage: React.FC = () => {
     const { path } = useRouteMatch();
     const history = useHistory();
 
-    // Redirect to login if not authenticated
+    
     React.useEffect(() => {
         if (!isAuthenticated()) {
             history.push('/');

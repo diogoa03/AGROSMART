@@ -6,12 +6,13 @@ from werkzeug.security import generate_password_hash
 
 class TestUserAuthentication(unittest.TestCase):
     def setUp(self):
-        # Use a test-specific users file
+
+        # prepara ficheiro de teste
         self.test_users_file = "data/test_users.json"
         self.user_store = UserStore()
         self.user_store.users_file = self.test_users_file
         
-        # Create test user data
+        # cria utilizadores para teste
         test_users = {
             "testuser": generate_password_hash("testpass123"),
             "admin": generate_password_hash("admin123")
@@ -21,32 +22,36 @@ class TestUserAuthentication(unittest.TestCase):
             json.dump(test_users, f)
 
     def tearDown(self):
-        # Clean up test file after tests
+
+        # limpa ficheiro após testes
         if os.path.exists(self.test_users_file):
             os.remove(self.test_users_file)
 
     def test_valid_user_login(self):
-        """Test login with valid credentials"""
-        self.assertTrue(self.user_store.verify_user("testuser", "testpass123"))
+
+        # testa login correto
         self.assertTrue(self.user_store.verify_user("admin", "admin123"))
 
     def test_invalid_password(self):
-        """Test login with invalid password"""
+
+        # testa senha errada
         self.assertFalse(self.user_store.verify_user("testuser", "wrongpass"))
 
     def test_nonexistent_user(self):
-        """Test login with non-existent user"""
+
+        # testa utilizador inexistente
         self.assertFalse(self.user_store.verify_user("nonexistent", "anypass"))
 
     def test_empty_credentials(self):
-        """Test login with empty credentials"""
+
+        # testa dados vazios
         self.assertFalse(self.user_store.verify_user("", ""))
         self.assertFalse(self.user_store.verify_user("testuser", ""))
         self.assertFalse(self.user_store.verify_user("", "testpass123"))
 
     def test_file_corruption(self):
-        """Test behavior when users file is corrupted"""
-        # Corrupt the file with invalid JSON
+        
+        # testa ficheiro danificado
         with open(self.test_users_file, 'w') as f:
             f.write("invalid json content")
         

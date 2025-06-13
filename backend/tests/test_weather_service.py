@@ -5,14 +5,16 @@ from src.storage.data_store import DataStore
 
 class TestWeatherService(unittest.TestCase):
     def setUp(self):
-        # Mock the socketio to avoid actual emissions during tests
+
+        # prepara o serviço com socketio simulado
         self.mock_socketio = Mock()
         self.weather_service = WeatherService(self.mock_socketio)
         self.data_store = DataStore()
 
     @patch('requests.get')
     def test_get_current_weather(self, mock_get):
-        # Mock API response
+
+        # simula a resposta da API do tempo
         mock_get.return_value.json.return_value = {
             'main': {'temp': 22.5, 'humidity': 70},
             'weather': [{'description': 'clear sky'}]
@@ -21,19 +23,20 @@ class TestWeatherService(unittest.TestCase):
 
         weather_data = self.weather_service.get_current_weather()
         
-        # Test weather data structure
+        # verifica se os dados têm os campos necessários
         self.assertIsNotNone(weather_data)
         self.assertIn('temperature', weather_data)
         self.assertIn('humidity', weather_data)
         self.assertIn('description', weather_data)
         self.assertIn('timestamp', weather_data)
         
-        # Verify that socketio.emit was called with correct data
+        # verifica se o evento foi emitido
         self.mock_socketio.emit.assert_called_once_with('weather_update', weather_data)
 
     @patch('requests.get')
     def test_weather_history(self, mock_get):
-        # Mock API response
+
+        # simula obtenção do histórico
         mock_get.return_value.json.return_value = {
             'main': {'temp': 22.5, 'humidity': 70},
             'weather': [{'description': 'clear sky'}]
@@ -46,17 +49,19 @@ class TestWeatherService(unittest.TestCase):
 
     @patch('requests.get')
     def test_weather_service_error(self, mock_get):
-        # Simulate API error
+        
+        # simula um erro na API
         mock_get.side_effect = Exception("API Error")
         
         with self.assertRaises(Exception):
             self.weather_service.get_current_weather()
         
-        # Verify that socketio.emit was not called on error
+        # confirma que não houve evento emitido
         self.mock_socketio.emit.assert_not_called()
 
     def tearDown(self):
-        # Clean up any test data if needed
+
+        # limpeza após os testes
         pass
 
 if __name__ == '__main__':

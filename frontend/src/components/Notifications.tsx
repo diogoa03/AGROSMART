@@ -23,51 +23,14 @@ const Notifications: React.FC = () => {
                     return;
                 }
                 const response = await fetchNotifications(token);
-                
-                // If API returns no notifications, use example data
-                if (response && response.length === 0) {
-                    const exampleNotifications = [
-                        {
-                            id: '1',
-                            type: 'Alerta de Humidade',
-                            message: 'Níveis críticos de humidade detectados',
-                            severity: 'HIGH',
-                            timestamp: new Date().toISOString(),
-                            details: 'Recomenda-se irrigação imediata',
-                            read: false,
-                            ignored: false
-                        },
-                        {
-                            id: '2',
-                            type: 'Manutenção',
-                            message: 'Verificação de sensores recomendada',
-                            severity: 'MEDIUM',
-                            timestamp: new Date().toISOString(),
-                            details: 'Os sensores de temperatura precisam ser calibrados',
-                            read: false,
-                            ignored: false
-                        },
-                        {
-                            id: '3',
-                            type: 'Informação',
-                            message: 'Previsão de chuva para os próximos dias',
-                            severity: 'LOW',
-                            timestamp: new Date().toISOString(),
-                            details: 'Possibilidade de precipitação nos próximos 3 dias',
-                            read: false,
-                            ignored: false
-                        }
-                    ];
-                    setNotifications(exampleNotifications);
-                } else {
-                    // Convert API response to enhanced notifications
-                    setNotifications(response.map((notification: Notification) => ({
+
+                setNotifications(
+                    (response || []).map((notification: Notification) => ({
                         ...notification,
-                        id: Math.random().toString(36).substr(2, 9), // Generate unique ID
                         read: false,
                         ignored: false
-                    })));
-                }
+                    }))
+                );
             } catch (err) {
                 setError('Failed to fetch notifications');
             } finally {
@@ -110,7 +73,7 @@ const Notifications: React.FC = () => {
                 return;
             }
             await clearNotifications(token);
-            setNotifications([]); // Clear local state as well
+            setNotifications([]); 
         } catch (err) {
             setError('Falha ao limpar notificações');
         }

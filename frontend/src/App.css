@@ -16,7 +16,7 @@ body {
   min-height: 100vh;
 }
 
-/* Header and Navigation */
+
 .header {
   background-color: #e8e3d0;
   display: flex;
@@ -38,7 +38,7 @@ body {
   height: 40px;
 }
 
-/* Sidebar */
+
 .sidebar {
   width: 250px;
   background: #1f3c2d;
@@ -94,7 +94,7 @@ body {
   height: 24px;
 }
 
-/* Main Content */
+
 .main-content {
   flex: 1;
   padding: 0;
@@ -107,7 +107,7 @@ body {
   margin-left: 250px;
 }
 
-/* Card containers */
+
 .card-container {
   padding: 1.5rem;
   margin: 1rem;
@@ -123,7 +123,7 @@ body {
   text-align: center;
 }
 
-/* Weather Display */
+
 .weather-display {
   display: flex;
   justify-content: space-around;
@@ -162,7 +162,7 @@ body {
   gap: 0.5rem;
 }
 
-/* Tables */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -186,7 +186,7 @@ tr:nth-child(even) {
   background: rgba(31, 60, 45, 0.05);
 }
 
-/* Login Page */
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -254,8 +254,7 @@ tr:nth-child(even) {
   background-color: #2e5c42;
 }
 
-/* Alerts and Notifications */
-/* Notification Item */
+
 .notification-item {
   position: relative;
   padding: 1rem;
@@ -277,7 +276,7 @@ tr:nth-child(even) {
   opacity: 0.85;
 }
 
-/* Notification Header */
+
 .notification-header {
   display: flex;
   justify-content: space-between;
@@ -290,7 +289,7 @@ tr:nth-child(even) {
   font-size: 1.1rem;
 }
 
-/* Severity Badge */
+
 .severity-badge {
   padding: 3px 10px;
   border-radius: 12px;
@@ -311,7 +310,7 @@ tr:nth-child(even) {
   background-color: #5bc0de;
 }
 
-/* Message and Details */
+
 .notification-message {
   font-size: 1rem;
   margin-bottom: 0.5rem;
@@ -326,7 +325,6 @@ tr:nth-child(even) {
   border-radius: 4px;
 }
 
-/* Footer with timestamp and action buttons */
 .notification-footer {
   display: flex;
   justify-content: space-between;
@@ -346,7 +344,7 @@ tr:nth-child(even) {
   gap: 0.5rem;
 }
 
-/* Action buttons */
+
 .action-button {
   padding: 4px 10px;
   border-radius: 4px;
@@ -389,7 +387,7 @@ tr:nth-child(even) {
   font-style: italic;
 }
 
-/* Recommendation Details */
+
 .recommendation-details {
   background-color: #f8f5ea;
   border-radius: 8px;

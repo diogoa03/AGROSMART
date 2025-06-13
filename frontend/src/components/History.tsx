@@ -26,19 +26,19 @@ const History: React.FC = () => {
             }
         };
 
-        // Initial data fetch
+        
         getHistoryData();
 
-        // Connect to Socket.IO
-        const socket = io('http://localhost:5000'); // Replace with your backend URL
         
-        // Listen for weather updates
+        const socket = io('http://localhost:5000'); 
+        
+        
         socket.on('weather_update', () => {
             console.log('Received weather update from server, refreshing history...');
             getHistoryData();
         });
 
-        // Clean up socket connection when component unmounts
+        
         return () => {
             socket.disconnect();
         };

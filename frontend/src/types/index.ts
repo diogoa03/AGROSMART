@@ -21,6 +21,7 @@ export interface Recommendation {
 }
 
 export interface Notification {
+    id?: string;
     type: string;
     message: string;
     severity: string;

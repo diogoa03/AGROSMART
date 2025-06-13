@@ -9,10 +9,10 @@ const LoginPage: React.FC = () => {
     const handleLogin = async (username: string, password: string) => {
         try {
             await login(username, password);
-            history.push('/dashboard'); // Redirect to the dashboard after successful login
+            history.push('/dashboard'); 
         } catch (error) {
             console.error("Login failed:", error);
-            throw error; // Throw the error to be handled by the form
+            throw error; 
         }
     };
 

@@ -41,22 +41,34 @@ const Weather: React.FC = () => {
             <h2 className="card-header">Condições Meteorológicas</h2>
             <div className="weather-display">
                 <div className="weather-item">
+                    {/* Ícone de sol para descrição */}
                     <svg className="weather-icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                        <circle cx="12" cy="12" r="5" fill="#FFD600"/>
+                        <g stroke="#FFD600" strokeWidth="2">
+                            <line x1="12" y1="1" x2="12" y2="4"/>
+                            <line x1="12" y1="20" x2="12" y2="23"/>
+                            <line x1="1" y1="12" x2="4" y2="12"/>
+                            <line x1="20" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
+                            <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
+                            <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
+                            <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
+                        </g>
                     </svg>
                     <div className="weather-label">Descrição</div>
                     <div className="weather-value">{weather?.description}</div>
                 </div>
                 <div className="weather-item">
+            
                     <svg className="weather-icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M12,3.25C12,3.25 6,10 6,14C6,17.32 8.69,20 12,20A6,6 0 0,0 18,14C18,10 12,3.25 12,3.25M14.47,9.97L15.53,11.03L9.53,17.03L8.47,15.97M9.75,10A1.25,1.25 0 0,1 11,11.25A1.25,1.25 0 0,1 9.75,12.5A1.25,1.25 0 0,1 8.5,11.25A1.25,1.25 0 0,1 9.75,10M14.25,14.5A1.25,1.25 0 0,1 15.5,15.75A1.25,1.25 0 0,1 14.25,17A1.25,1.25 0 0,1 13,15.75A1.25,1.25 0 0,1 14.25,14.5Z"/>
+                        <path fill="#2196F3" d="M12 2C12 2 5 10 5 15a7 7 0 0 0 14 0C19 10 12 2 12 2zm0 18a5 5 0 0 1-5-5c0-3.07 3.58-7.36 5-9.06C13.42 7.64 17 11.93 17 15a5 5 0 0 1-5 5z"/>
                     </svg>
                     <div className="weather-label">Humidade</div>
                     <div className="weather-value">{weather?.humidity}%</div>
                 </div>
                 <div className="weather-item">
                     <svg className="weather-icon" viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M15,13V5A3,3 0 0,0 12,2A3,3 0 0,0 9,5V13A5,5 0 0,0 4,18A5,5 0 0,0 9,23A5,5 0 0,0 14,18A5,5 0 0,0 9,13C9,13 9,13 9,13V5A3,3 0 0,1 12,8V13H15M12,19A1,1 0 0,1 11,18A1,1 0 0,1 12,17A1,1 0 0,1 13,18A1,1 0 0,1 12,19Z"/>
+                        <path fill="#F44336" d="M17 17.5a5 5 0 1 1-10 0c0-2.54 1.92-4.64 4.38-4.96V5a1.62 1.62 0 1 1 3.24 0v7.54A5.01 5.01 0 0 1 17 17.5zm-5 3a3 3 0 0 0 3-3c0-1.31-.84-2.42-2-2.83V5a1 1 0 1 0-2 0v9.67c-1.16.41-2 1.52-2 2.83a3 3 0 0 0 3 3z"/>
                     </svg>
                     <div className="weather-label">Temperatura</div>
                     <div className="weather-value">{weather?.temperature}°C</div>
