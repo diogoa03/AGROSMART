@@ -1,0 +1,12 @@
+2025-06-10 19:03:21,219 - agrosmart - ERROR - Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/weather?q=Porto%2CPT&appid=your_api_key_here&units=metric
+2025-06-10 19:03:21,219 - agrosmart - ERROR - Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/weather?q=Porto%2CPT&appid=your_api_key_here&units=metric
+2025-06-10 19:03:21,345 - agrosmart - ERROR - Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/weather?q=Porto%2CPT&appid=your_api_key_here&units=metric
+2025-06-10 19:03:21,345 - agrosmart - ERROR - Error fetching weather data: 401 Client Error: Unauthorized for url: http://api.openweathermap.org/data/2.5/weather?q=Porto%2CPT&appid=your_api_key_here&units=metric
+2025-06-10 19:03:50,929 - agrosmart - INFO - Weather data saved successfully
+2025-06-10 19:03:50,929 - agrosmart - INFO - Weather data saved successfully
+2025-06-10 19:03:51,054 - agrosmart - INFO - Weather data saved successfully
+2025-06-10 19:03:51,054 - agrosmart - INFO - Weather data saved successfully
+2025-06-10 19:08:58,336 - agrosmart - ERROR - Error verifying user: Expecting value: line 1 column 1 (char 0)
+2025-06-10 19:11:55,080 - agrosmart - ERROR - Error generating recommendation: 'humidity'
+2025-06-10 19:21:55,289 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
+2025-06-10 19:23:28,156 - agrosmart - ERROR - Error generating grape cultivation recommendation: 'humidity'
