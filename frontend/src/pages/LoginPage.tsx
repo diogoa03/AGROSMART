@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
     const handleLogin = async (username: string, password: string) => {
         try {
             await login(username, password);
-            history.push('/dashboard'); 
+            history.push('/agrosmart'); 
         } catch (error) {
             console.error("Login failed:", error);
             throw error; 

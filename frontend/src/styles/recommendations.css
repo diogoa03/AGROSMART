@@ -1,0 +1,21 @@
+.recommendation-details {
+  background-color: #f8f5ea;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.recommendation-summary, 
+.recommendation-conditions, 
+.recommendation-warnings {
+  margin-bottom: 1.5rem;
+}
+
+.recommendation-warnings ul {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.recommendation-warnings li {
+  margin-bottom: 0.5rem;
+}
