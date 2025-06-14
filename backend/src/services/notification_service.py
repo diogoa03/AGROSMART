@@ -1,5 +1,5 @@
 from datetime import datetime
-import uuid  # Adicione esta linha
+import uuid 
 from ..utils.logger import setup_logger
 
 # configuração do registo de eventos
