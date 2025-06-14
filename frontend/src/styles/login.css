@@ -71,3 +71,32 @@
   margin-top: 0.5rem;
   font-size: 0.9rem;
 }
+
+.back-to-login {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(31, 60, 45, 0.2);
+}
+
+.back-to-login p {
+  margin-bottom: 0.5rem;
+  color: #1f3c2d;
+  font-size: 0.9rem;
+}
+
+.back-to-login-btn {
+  background-color: transparent;
+  color: #1f3c2d;
+  border: 2px solid #1f3c2d;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.back-to-login-btn:hover {
+  background-color: #1f3c2d;
+  color: #fff;
+}

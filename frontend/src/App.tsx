@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import Sidebar from './components/Sidebar';
 import Recommendations from './components/Recommendations';
 import Notifications from './components/Notifications';
@@ -78,6 +80,7 @@ const App: React.FC = () => {
       <div className="app-container">
         <Switch>
           <Route path="/" exact component={LoginPage} />
+          <Route path="/register" exact component={RegisterPage} />
           <PrivateRoute path="/agrosmart">
             <DashboardLayout />
           </PrivateRoute>
