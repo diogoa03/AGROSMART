@@ -1,146 +1,146 @@
 [
   {
-    "temperature": 12.73,
-    "humidity": 100,
-    "description": "nevoeiro",
-    "timestamp": "2025-06-14T06:47:59.544510"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:48:32.605300"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:48:32.984681"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:48:38.258183"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:48:40.936140"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:50:02.510121"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:50:02.862668"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:50:07.366518"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "fog",
-    "timestamp": "2025-06-14T06:50:11.482604"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "nevoeiro",
-    "timestamp": "2025-06-14T06:50:55.504402"
-  },
-  {
-    "temperature": 12.73,
-    "humidity": 94,
-    "description": "nevoeiro",
-    "timestamp": "2025-06-14T06:50:55.841832"
-  },
-  {
-    "temperature": 22.5,
-    "humidity": 70,
+    "temperature": 18.73,
+    "humidity": 68,
     "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-14T06:57:59.911558"
+    "timestamp": "2025-06-14T18:36:20.434179"
   },
   {
-    "temperature": 22.5,
-    "humidity": 70,
+    "temperature": 18.73,
+    "humidity": 68,
     "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-14T06:57:59.924130"
+    "timestamp": "2025-06-14T18:36:23.561409"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:53:42.629669"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:36:25.000112"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:53:43.440476"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:36:26.555668"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:54:42.740472"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:36:28.057234"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:55:42.848520"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:37:01.388090"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:56:42.966266"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:37:17.517223"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:57:43.069249"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:37:27.890572"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:58:43.199537"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:38:17.642790"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T07:59:43.309051"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:39:17.774837"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T08:00:43.410128"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:40:17.908864"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T08:01:43.514428"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:41:18.054597"
   },
   {
-    "temperature": 14.73,
-    "humidity": 100,
-    "description": "poucas nuvens",
-    "timestamp": "2025-06-14T08:02:43.640389"
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:42:18.183825"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:43:02.333147"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:43:06.107244"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:43:18.317327"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:44:18.446857"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:44:44.231667"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:45:09.025337"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:45:12.534458"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:45:16.656269"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:45:18.562845"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:45:41.058491"
+  },
+  {
+    "temperature": 18.73,
+    "humidity": 68,
+    "description": "c\u00e9u limpo",
+    "timestamp": "2025-06-14T18:46:18.704940"
   }
 ]

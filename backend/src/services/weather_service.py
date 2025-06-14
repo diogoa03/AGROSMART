@@ -40,6 +40,7 @@ class WeatherService:
                 'few clouds': 'poucas nuvens',
                 'scattered clouds': 'nuvens dispersas',
                 'broken clouds': 'nuvens fragmentadas',
+                'light rain': 'chuva fraca',
                 'shower rain': 'aguaceiros',
                 'rain': 'chuva',
                 'thunderstorm': 'trovoada',

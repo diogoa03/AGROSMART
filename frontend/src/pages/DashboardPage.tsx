@@ -6,6 +6,7 @@ import Recommendations from '../components/Recommendations';
 import Notifications from '../components/Notifications';
 import Weather from '../components/Weather';
 import History from '../components/History';
+import HomePage from './HomePage';
 
 const DashboardPage: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -49,7 +50,7 @@ const DashboardPage: React.FC = () => {
                         <Weather />
                     </Route>
                     <Route path={path} exact>
-                        <Weather />
+                        <HomePage />
                     </Route>
                 </Switch>
             </div>
