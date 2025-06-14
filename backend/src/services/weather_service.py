@@ -44,7 +44,7 @@ class WeatherService:
                 'rain': 'chuva',
                 'thunderstorm': 'trovoada',
                 'snow': 'neve',
-                'mist': 'nevoeiro'
+                'fog': 'nevoeiro'
             }
             description_original = weather_data['weather'][0]['description']
             description_pt = description_en_pt.get(description_original.lower(), description_original)

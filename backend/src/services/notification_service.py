@@ -53,27 +53,26 @@ class NotificationService:
                     'details': 'Considerar aumento da irrigação'
                 })
 
-            # adicionar recomendações de irrigação
-            if recommendation['should_irrigate']:
-                notifications.append({
-                    'id': str(uuid.uuid4()),
-                    'type': 'ALERTA_IRRIGAÇÃO',
-                    'message': f"Irrigação necessária - Intensidade {recommendation['intensity']}",
-                    'severity': 'HIGH' if recommendation['intensity'] == 'elevada' else 'MEDIUM', 
-                    'timestamp': datetime.now().isoformat(),
-                    'details': recommendation['reason']
-                })
+            # if recommendation['should_irrigate']:
+            #     notifications.append({
+            #         'id': str(uuid.uuid4()),
+            #         'type': 'ALERTA_IRRIGAÇÃO',
+            #         'message': f"Irrigação necessária - Intensidade {recommendation['intensity']}",
+            #         'severity': 'HIGH' if recommendation['intensity'] == 'elevada' else 'MEDIUM', 
+            #         'timestamp': datetime.now().isoformat(),
+            #         'details': recommendation['reason']
+            #     })
 
             # processar avisos
-            for warning in recommendation['warnings']:
-                notifications.append({
-                    'id': str(uuid.uuid4()),
-                    'type': 'AVISO',
-                    'message': warning,
-                    'severity': 'MEDIUM',  
-                    'timestamp': datetime.now().isoformat(),
-                    'details': 'Aviso automático baseado nas condições atuais'
-                })
+            # for warning in recommendation['warnings']:
+            #     notifications.append({
+            #         'id': str(uuid.uuid4()),
+            #         'type': 'AVISO',
+            #         'message': warning,
+            #         'severity': 'MEDIUM',  
+            #         'timestamp': datetime.now().isoformat(),
+            #         'details': 'Aviso automático baseado nas condições atuais'
+            #     })
 
             # guardar notificações na lista geral
             self.notifications.extend(notifications)

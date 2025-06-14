@@ -1,146 +1,146 @@
 [
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:36:48.597243"
+    "temperature": 12.73,
+    "humidity": 100,
+    "description": "nevoeiro",
+    "timestamp": "2025-06-14T06:47:59.544510"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:36:50.683549"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:48:32.605300"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:37:20.983382"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:48:32.984681"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:38:18.965788"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:48:38.258183"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:38:21.097283"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:48:40.936140"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:38:29.693093"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:50:02.510121"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:38:40.501838"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:50:02.862668"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:38:42.677182"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:50:07.366518"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:39:01.847699"
+    "description": "fog",
+    "timestamp": "2025-06-14T06:50:11.482604"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:39:21.222658"
+    "description": "nevoeiro",
+    "timestamp": "2025-06-14T06:50:55.504402"
   },
   {
-    "temperature": 15.73,
+    "temperature": 12.73,
     "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:40:28.716614"
-  },
-  {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:40:29.064424"
-  },
-  {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:40:34.010065"
-  },
-  {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:41:28.824412"
+    "description": "nevoeiro",
+    "timestamp": "2025-06-14T06:50:55.841832"
   },
   {
     "temperature": 22.5,
     "humidity": 70,
     "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:42:21.949418"
+    "timestamp": "2025-06-14T06:57:59.911558"
   },
   {
     "temperature": 22.5,
     "humidity": 70,
     "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:42:21.961210"
+    "timestamp": "2025-06-14T06:57:59.924130"
   },
   {
-    "temperature": 22.5,
-    "humidity": 70,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:43:29.333573"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:53:42.629669"
   },
   {
-    "temperature": 22.5,
-    "humidity": 70,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:43:29.336319"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:53:43.440476"
   },
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:44:24.416497"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:54:42.740472"
   },
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:44:52.279030"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:55:42.848520"
   },
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:45:24.527388"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:56:42.966266"
   },
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:45:38.651555"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:57:43.069249"
   },
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:45:40.479187"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:58:43.199537"
   },
   {
-    "temperature": 15.73,
-    "humidity": 94,
-    "description": "c\u00e9u limpo",
-    "timestamp": "2025-06-13T23:45:44.813745"
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T07:59:43.309051"
+  },
+  {
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T08:00:43.410128"
+  },
+  {
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T08:01:43.514428"
+  },
+  {
+    "temperature": 14.73,
+    "humidity": 100,
+    "description": "poucas nuvens",
+    "timestamp": "2025-06-14T08:02:43.640389"
   }
 ]
