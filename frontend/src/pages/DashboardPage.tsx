@@ -6,6 +6,7 @@ import Recommendations from '../components/Recommendations';
 import Notifications from '../components/Notifications';
 import Weather from '../components/Weather';
 import History from '../components/History';
+import Profile from '../components/Profile';
 import HomePage from './HomePage';
 
 const DashboardPage: React.FC = () => {
@@ -13,7 +14,6 @@ const DashboardPage: React.FC = () => {
     const { path } = useRouteMatch();
     const history = useHistory();
 
-    
     React.useEffect(() => {
         if (!isAuthenticated()) {
             history.push('/');
@@ -37,6 +37,9 @@ const DashboardPage: React.FC = () => {
                 </header>
                 
                 <Switch>
+                    <Route path={`${path}/profile`}>
+                        <Profile />
+                    </Route>
                     <Route path={`${path}/recommendations`}>
                         <Recommendations />
                     </Route>

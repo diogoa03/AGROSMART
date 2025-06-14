@@ -20,13 +20,45 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         toggleSidebar();
     };
 
+    // Função para obter o nome do usuário do token armazenado
+    const getUserName = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decoded = atob(token);
+                const username = decoded.split(':')[0];
+                return username || 'User';
+            } catch (error) {
+                return 'User';
+            }
+        }
+        return 'User';
+    };
+
     return (
         <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
             <div className="sidebar-header">
                 <button className="close-button" onClick={toggleSidebar}>✕</button>
             </div>
+            
+            {/* Seção de Boas-vindas e Perfil */}
+            <div className="user-section">
+                <div className="user-avatar">
+                    <svg className="user-icon" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div className="welcome-text">Bem-Vindo, {getUserName()}!</div>
+            </div>
+
             <nav>
                 <ul>
+                    <li onClick={() => handleNavigation('/dashboard/profile')}>
+                        <svg className="sidebar-icon" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        Perfil
+                    </li>
                     <li onClick={() => handleNavigation('/dashboard')}>
                         <svg className="sidebar-icon" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
@@ -47,9 +79,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                     </li>
                     <li onClick={() => handleNavigation('/dashboard/recommendations')}>
                         <svg className="sidebar-icon" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.17-5.24l-1.1-1.1c.71-1.33.53-3.01-.59-4.13C13.79 8.84 12.9 8.5 12 8.5c-.03 0-.06.01-.09.01L13 9.6l-1.06 1.06-2.83-2.83L11.94 5 13 6.06l-.96.96c1.27-.01 2.53.47 3.5 1.44 1.42 1.42 1.74 3.49.93 5.2l1.11 1.11-1.41 1.99z"/>
+                            <path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
-                        Recomendacao
+                        Plantação
                     </li>
                     <li onClick={() => handleNavigation('/dashboard/history')}>
                         <svg className="sidebar-icon" viewBox="0 0 24 24">
