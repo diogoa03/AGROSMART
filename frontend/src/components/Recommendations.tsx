@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchRecommendations } from '../services/api';
 import { Recommendation } from '../types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-    faDroplet, 
-    faThermometerHalf, 
-    faExclamationTriangle, 
-    faCheckCircle, 
-    faTimesCircle,
-    faLeaf,
-    faWater,
-    faSeedling
-} from '@fortawesome/free-solid-svg-icons';
+import '../styles/recommendations.css';
 
 const Recommendations: React.FC = () => {
     const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
@@ -39,36 +29,11 @@ const Recommendations: React.FC = () => {
         getRecommendations();
     }, []);
 
-    const getIntensityIcon = (intensity: string) => {
-        switch(intensity.toLowerCase()) {
-            case 'elevada': return faWater;
-            case 'média': return faDroplet;
-            case 'baixa': return faSeedling;
-            default: return faLeaf;
-        }
-    };
-
-    const getIntensityClass = (intensity: string) => {
-        switch(intensity.toLowerCase()) {
-            case 'elevada': return 'intensity-high';
-            case 'média': return 'intensity-medium';
-            case 'baixa': return 'intensity-low';
-            default: return 'intensity-none';
-        }
-    };
-
-    const getStatusClass = (status: string) => {
-        switch(status.toLowerCase()) {
-            case 'elevada': return 'status-high';
-            case 'baixa': return 'status-low';
-            default: return 'status-normal';
-        }
-    };
-
     if (loading) {
         return (
-            <div className="recommendations-container">
-                <div className="recommendations-loading">
+            <div className="card-container">
+                <h2 className="card-header">Recomendações de Irrigação</h2>
+                <div className="loading-container">
                     <div className="loading-spinner"></div>
                     <p>A carregar recomendações...</p>
                 </div>
@@ -78,98 +43,79 @@ const Recommendations: React.FC = () => {
 
     if (error) {
         return (
-            <div className="recommendations-container">
-                <div className="recommendations-error">
-                    <FontAwesomeIcon icon={faExclamationTriangle} />
+            <div className="card-container">
+                <h2 className="card-header">Recomendações de Irrigação</h2>
+                <div style={{ padding: '1rem', textAlign: 'center' }}>
                     <p>{error}</p>
+                    <button 
+                        onClick={() => window.location.reload()} 
+                        style={{ 
+                            marginTop: '0.5rem', 
+                            padding: '0.5rem 1rem', 
+                            backgroundColor: '#1f3c2d',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        Tentar Novamente
+                    </button>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="recommendations-container">
-            <h2 className="recommendations-header">
-                <FontAwesomeIcon icon={faLeaf} className="header-icon" />
-                Recomendações de Irrigação
-            </h2>
+        <div className="card-container">
+            <h2 className="card-header">Recomendações de Irrigação</h2>
             
             {recommendation ? (
-                <div className="recommendations-content">
-                    {/* Cartão Principal de Recomendação */}
-                    <div className={`recommendation-main-card ${recommendation.should_irrigate ? 'irrigate-yes' : 'irrigate-no'}`}>
-                        <div className="main-card-icon">
-                            <FontAwesomeIcon 
-                                icon={recommendation.should_irrigate ? faCheckCircle : faTimesCircle} 
-                                className="irrigation-icon"
-                            />
+                <div className="recommendation-details">
+                    <div className="recommendation-summary">
+                        <h3>Resumo</h3>
+                        <div className="recommendation-item">
+                            <span className="recommendation-label">Deve irrigar:</span>
+                            <span className={`irrigation-status ${recommendation.should_irrigate ? 'irrigate-yes' : 'irrigate-no'}`}>
+                                {recommendation.should_irrigate ? 'Sim' : 'Não'}
+                            </span>
                         </div>
-                        <div className="main-card-content">
-                            <h3 className="irrigation-decision">
-                                {recommendation.should_irrigate ? 'Deve Irrigar' : 'Não Precisa Irrigar'}
-                            </h3>
-                            <div className="irrigation-reason">
-                                {recommendation.reason}
-                            </div>
+                        <div className="recommendation-item">
+                            <span className="recommendation-label">Intensidade:</span>
+                            <span>{recommendation.intensity}</span>
                         </div>
-                    </div>
-
-                    {/* Cartão de Intensidade */}
-                    <div className={`intensity-card ${getIntensityClass(recommendation.intensity)}`}>
-                        <div className="intensity-icon">
-                            <FontAwesomeIcon icon={getIntensityIcon(recommendation.intensity)} />
-                        </div>
-                        <div className="intensity-content">
-                            <h4>Intensidade de Irrigação</h4>
-                            <span className="intensity-value">{recommendation.intensity}</span>
-                        </div>
-                    </div>
-
-                    {/* Condições Atuais */}
-                    <div className="conditions-grid">
-                        <div className={`condition-card temperature ${getStatusClass(recommendation.temperature_status)}`}>
-                            <div className="condition-icon">
-                                <FontAwesomeIcon icon={faThermometerHalf} />
-                            </div>
-                            <div className="condition-content">
-                                <h4>Temperatura</h4>
-                                <span className="condition-status">{recommendation.temperature_status}</span>
-                            </div>
-                        </div>
-
-                        <div className={`condition-card humidity ${getStatusClass(recommendation.humidity_status)}`}>
-                            <div className="condition-icon">
-                                <FontAwesomeIcon icon={faDroplet} />
-                            </div>
-                            <div className="condition-content">
-                                <h4>Humidade</h4>
-                                <span className="condition-status">{recommendation.humidity_status}</span>
-                            </div>
+                        <div className="recommendation-item">
+                            <span className="recommendation-label">Motivo:</span>
+                            <span>{recommendation.reason}</span>
                         </div>
                     </div>
                     
-                    {/* Avisos */}
+                    <div className="recommendation-conditions">
+                        <h3>Condições Atuais</h3>
+                        <div className="recommendation-item">
+                            <span className="recommendation-label">Temperatura:</span>
+                            <span>{recommendation.temperature_status}</span>
+                        </div>
+                        <div className="recommendation-item">
+                            <span className="recommendation-label">Humidade:</span>
+                            <span>{recommendation.humidity_status}</span>
+                        </div>
+                    </div>
+                    
                     {recommendation.warnings && recommendation.warnings.length > 0 && (
-                        <div className="warnings-section">
-                            <div className="warnings-header">
-                                <FontAwesomeIcon icon={faExclamationTriangle} className="warning-icon" />
-                                <h4>Avisos Importantes</h4>
-                            </div>
-                            <div className="warnings-list">
+                        <div className="recommendation-warnings">
+                            <h3>Avisos</h3>
+                            <ul>
                                 {recommendation.warnings.map((warning, index) => (
-                                    <div key={index} className="warning-item">
-                                        <FontAwesomeIcon icon={faExclamationTriangle} className="warning-bullet" />
-                                        <span>{warning}</span>
-                                    </div>
+                                    <li key={index}>{warning}</li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
                     )}
                 </div>
             ) : (
-                <div className="no-recommendations">
-                    <FontAwesomeIcon icon={faLeaf} className="no-data-icon" />
-                    <p>Sem recomendações de irrigação neste momento.</p>
+                <div style={{ padding: '1rem', textAlign: 'center' }}>
+                    Sem recomendações de irrigação neste momento.
                 </div>
             )}
         </div>

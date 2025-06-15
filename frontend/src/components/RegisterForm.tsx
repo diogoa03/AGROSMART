@@ -21,7 +21,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onRegister }) => {
         e.preventDefault();
         setError('');
 
-        // Validações
         if (!username || !email || !password || !confirmPassword) {
             setError('Todos os campos são obrigatórios');
             return;

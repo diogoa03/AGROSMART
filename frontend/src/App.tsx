@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -10,6 +9,7 @@ import Weather from './components/Weather';
 import History from './components/History';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
+import UserProfilePage from './pages/UserProfilePage'; 
 import { isAuthenticated } from './services/auth';
 import './styles/index.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -50,6 +50,9 @@ const DashboardLayout: React.FC = () => {
           </Route>
           <Route path="/agrosmart/contact">
             <ContactPage />
+          </Route>
+          <Route path="/agrosmart/profile">
+            <UserProfilePage />
           </Route>
           <Route path="/agrosmart" exact>
             <HomePage />

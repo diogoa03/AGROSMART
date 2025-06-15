@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../services/auth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faCloud, faBell, faLeaf, faHistory, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCloud, faBell, faLeaf, faHistory, faSignOutAlt, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -48,6 +48,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                     <li onClick={() => handleNavigation('/agrosmart/history')}>
                         <FontAwesomeIcon icon={faHistory} className="sidebar-icon" />
                         Histórico
+                    </li>
+                    <li onClick={() => handleNavigation('/agrosmart/profile')}>
+                        <FontAwesomeIcon icon={faUserEdit} className="sidebar-icon" />
+                        Perfil
                     </li>
                     <li onClick={handleLogout} className="logout-item">
                         <FontAwesomeIcon icon={faSignOutAlt} className="sidebar-icon" />

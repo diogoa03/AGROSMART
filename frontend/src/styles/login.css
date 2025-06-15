@@ -100,3 +100,15 @@
   background-color: #1f3c2d;
   color: #fff;
 }
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.form-actions .login-btn,
+.form-actions .back-to-login-btn {
+  flex: 1;
+  margin-top: 0;
+}
