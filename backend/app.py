@@ -49,6 +49,7 @@ def get_weather():
         logger.error(f"Error getting weather data: {str(e)}")
         return jsonify({"error": "Failed to fetch weather data"}), 500
 
+
 # rota para obter recomendações baseadas no clima atual
 @app.route('/api/recommendations', methods=['GET'])
 @require_auth
@@ -60,6 +61,7 @@ def get_recommendations():
     except Exception as e:
         logger.error(f"Error getting recommendations: {str(e)}")
         return jsonify({"error": "Failed to generate recommendations"}), 500
+    
 
 # rota para obter histórico de dados meteorológicos
 @app.route('/api/history/weather', methods=['GET'])
@@ -76,7 +78,7 @@ def get_weather_history():
 def background_weather_updates():
     while True:
         weather_data = weather_service.get_current_weather()
-        time.sleep(60)
+        time.sleep(20)
 
 # rota para obter notificações ativas
 @app.route('/api/notifications', methods=['GET'])
