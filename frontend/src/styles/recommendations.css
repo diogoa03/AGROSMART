@@ -1,21 +1,365 @@
-.recommendation-details {
-  background-color: #f8f5ea;
-  border-radius: 8px;
+/* Recommendations Container */
+.recommendations-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.recommendations-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
   padding: 1.5rem;
-  margin-top: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  color: white;
 }
 
-.recommendation-summary, 
-.recommendation-conditions, 
-.recommendation-warnings {
-  margin-bottom: 1.5rem;
+.recommendations-header .header-icon {
+  font-size: 2rem;
+  color: #a8e6cf;
 }
 
-.recommendation-warnings ul {
-  margin-top: 0.5rem;
-  padding-left: 1.5rem;
+.recommendations-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.recommendation-warnings li {
-  margin-bottom: 0.5rem;
+/* Loading and Error States */
+.recommendations-loading, .recommendations-error, .no-recommendations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-icon, .info-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #e74c3c;
+}
+
+.info-icon {
+  color: #3498db;
+}
+
+/* Main Recommendation Card */
+.main-recommendation-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-recommendation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #a8e6cf, #7fcdcd, #81c784);
+}
+
+.irrigate-yes {
+  background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+  border-left: 5px solid #4caf50;
+}
+
+.irrigate-no {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffccbc 100%);
+  border-left: 5px solid #ff9800;
+}
+
+.recommendation-icon {
+  flex-shrink: 0;
+}
+
+.main-icon {
+  font-size: 4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.main-icon.yes {
+  color: #4caf50;
+}
+
+.main-icon.no {
+  color: #ff9800;
+}
+
+.recommendation-main-content {
+  flex: 1;
+}
+
+.irrigation-decision {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.irrigation-reason {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #5d6d7e;
+  line-height: 1.5;
+}
+
+.intensity-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+  text-align: center;
+}
+
+.intensity-badge svg {
+  font-size: 2rem;
+}
+
+.intensity-badge span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Conditions Grid */
+.conditions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.condition-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.condition-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.condition-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.condition-icon {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background: #f8f9fa;
+}
+
+.temp-icon {
+  color: #ff6b6b;
+  background: #ffe3e3;
+}
+
+.humidity-icon {
+  color: #4ecdc4;
+  background: #e3f8f7;
+}
+
+.condition-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.condition-content {
+  padding-left: 2.25rem;
+}
+
+.condition-status {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* Warnings Section */
+.warnings-section {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 5px solid #ffa726;
+}
+
+.warnings-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.warning-icon {
+  font-size: 1.5rem;
+  color: #ff8f00;
+}
+
+.warnings-header h4 {
+  margin: 0;
+  color: #e65100;
+  font-weight: 600;
+}
+
+.warnings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.warning-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.1);
+}
+
+.warning-bullet {
+  color: #ff8f00;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.warning-item span {
+  color: #d84315;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Action Summary */
+.action-summary {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  border-radius: 15px;
+  padding: 1.5rem;
+  border-left: 5px solid #ab47bc;
+}
+
+.summary-content h4 {
+  margin: 0 0 1rem 0;
+  color: #6a1b9a;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.summary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(171, 71, 188, 0.1);
+}
+
+.summary-item strong {
+  color: #4a148c;
+}
+
+.summary-item span.yes {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.summary-item span.no {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .recommendations-container {
+    padding: 1rem;
+  }
+  
+  .main-recommendation-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .conditions-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recommendations-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .summary-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendations-header h2 {
+    font-size: 1.4rem;
+  }
+  
+  .main-icon {
+    font-size: 3rem;
+  }
+  
+  .irrigation-decision {
+    font-size: 1.2rem;
+  }
 }
