@@ -37,7 +37,6 @@ const Weather: React.FC = () => {
     }, []);
 
     // Função para selecionar o ícone com base na descrição do tempo
-    // Atualizada para corresponder exatamente às descrições usadas no backend
     const getWeatherIcon = (description: string) => {
         const desc = description.toLowerCase();
         

@@ -104,7 +104,7 @@ const Notifications: React.FC = () => {
 
     return (
         <div className="card-container">
-            <h2 className="card-header">Notificações</h2>
+            <h2 className="card-header">Alertas</h2>
             <button 
                 className="action-button ignore" 
                 style={{ marginBottom: '1rem' }}

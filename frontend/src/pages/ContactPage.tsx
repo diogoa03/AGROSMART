@@ -24,7 +24,6 @@ const ContactPage: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Simulação de envio
         setIsSubmitted(true);
         setTimeout(() => {
             setIsSubmitted(false);
@@ -205,7 +204,6 @@ const ContactPage: React.FC = () => {
                             </div>
                         </div>
                         
-                        {/* FAQ Section */}
                         <div className="faq-card">
                             <h3>Perguntas Frequentes</h3>
                             

@@ -7,14 +7,12 @@ const UserProfilePage: React.FC = () => {
     const history = useHistory();
     const [successMessage, setSuccessMessage] = useState('');
     
-    // Dados fictícios do utilizador
     const mockUserData = {
         name: 'admin',
         email: 'admin@agrosmart.pt',
     };
 
     const handleSave = async (name: string, email: string, password: string) => {
-        // Simula uma chamada de API para salvar os dados
         return new Promise<void>((resolve) => {
             setTimeout(() => {
                 console.log('Saved user data:', { name, email, password: password ? '********' : '[unchanged]' });

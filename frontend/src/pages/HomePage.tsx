@@ -13,9 +13,9 @@ const HomePage: React.FC = () => {
     return (
         <div className="home-container">
             <section className="hero-section">
-                <h1 className="welcome-title">Agricultura Inteligente para o Futuro</h1>
-                <p className="welcome-subtitle">Gerencie suas culturas com tecnologia avançada. Monitore condições meteorológicas, 
-                receba alertas personalizados e otimize sua produção agrícola.</p>
+                <h1 className="welcome-title">AgroSmart</h1>
+                <p className="welcome-subtitle">AGROSMART é um sistema de gestão agrícola que utiliza Flask e React para fornecer
+                    monitorização meteorológica em tempo real e recomendações inteligentes de irrigação.</p>
             </section>
 
             <section className="features-section">
@@ -27,24 +27,24 @@ const HomePage: React.FC = () => {
                     <div className="home-card" onClick={() => navigateTo('/agrosmart/weather')}>
                         <FontAwesomeIcon icon={faCloud} className="home-icon" />
                         <h2>Meteorologia</h2>
-                        <p>Previsões precisas e dados meteorológicos em tempo real para suas culturas</p>
+                        <p>Previsões precisas com dados metereológicos de temperatura e humidade</p>
                     </div>
                     
                     <div className="home-card" onClick={() => navigateTo('/agrosmart/alerts')}>
                         <FontAwesomeIcon icon={faBell} className="home-icon" />
-                        <h2>Alertas Inteligentes</h2>
+                        <h2>Alertas</h2>
                         <p>Notificações personalizadas sobre condições adversas e oportunidades</p>
                     </div>
                     
                     <div className="home-card" onClick={() => navigateTo('/agrosmart/recommendations')}>
                         <FontAwesomeIcon icon={faLeaf} className="home-icon" />
-                        <h2>Gestão de Plantação</h2>
-                        <p>Acompanhe o ciclo de vida das suas culturas e otimize o rendimento</p>
+                        <h2>Recomendação</h2>
+                        <p>Faz um Resumo e apresenta as Condições atuais das vinhas</p>
                     </div>
                     
                     <div className="home-card" onClick={() => navigateTo('/agrosmart/history')}>
                         <FontAwesomeIcon icon={faHistory} className="home-icon" />
-                        <h2>Histórico Detalhado</h2>
+                        <h2>Histórico</h2>
                         <p>Analise dados históricos para tomar decisões mais informadas</p>
                     </div>
                 </div>
